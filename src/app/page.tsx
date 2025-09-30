@@ -14,7 +14,7 @@ export default function Home() {
         <div className="bg-yellow-100 border-b border-yellow-200 px-4 py-3 relative">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <p className="text-sm text-yellow-800 font-medium">
-              📋 Draft webportal for OHA based on meeting notes of 21 Sep '25
+               📋 Draft webportal for OHA based on meeting notes of 21 Sep &apos;25
             </p>
             <button
               onClick={() => setShowBanner(false)}
@@ -314,7 +314,7 @@ export default function Home() {
                 </div>
                 <div className="flex-1">
                   <h4 className="text-xl font-semibold text-gray-900 mb-2">Strategic Analysis</h4>
-                  <p className="text-gray-600 mb-4">Comprehensive analysis of OHA's strategic direction, market positioning, and development roadmap.</p>
+                  <p className="text-gray-600 mb-4">Comprehensive analysis of OHA&apos;s strategic direction, market positioning, and development roadmap.</p>
                    <a 
                      href="/docs/Strategic%20Analysis%20of%20Oasis%20HA.pdf" 
                      target="_blank"
