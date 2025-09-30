@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #f7f9fb;
+  --foreground: #1f2937;
+  --oasis-green: #059669;
+  --oasis-blue: #3b82f6;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom utility classes */
+.text-oasis-green { 
+  color: #059669; 
+}
+
+.bg-oasis-blue { 
+  background-color: #3b82f6; 
+}
+
+.border-oasis-green { 
+  border-color: #059669; 
+}
+
+.restricted-draft {
+  border: 2px dashed #ef4444;
+  background-color: #fef2f2;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.75rem;
+  text-align: center;
+}

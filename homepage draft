@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Housing Association - Your Future Lifestyle Community</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .text-oasis-green { color: #059669; } /* Emerald Green */
+        .bg-oasis-blue { background-color: #3b82f6; } /* Blue */
+        .border-oasis-green { border-color: #059669; }
+        .restricted-draft {
+            border: 2px dashed #ef4444; /* Red dashed border */
+            background-color: #fef2f2; /* Light red background */
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="shadow-lg sticky top-0 z-50 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-oasis-green">
+                <span class="text-4xl">🚰</span> Oasis HA
+            </h1>
+            <!-- UPDATED NAVIGATION -->
+            <nav class="hidden md:flex space-x-6 font-medium text-sm">
+                <a href="#vision" class="hover:text-oasis-green transition duration-300">Our Vision</a>
+                <a href="#transparency" class="hover:text-oasis-green transition duration-300">Finance</a>
+                <a href="#leadership" class="hover:text-oasis-green transition duration-300">Leadership</a>
+                <a href="#timeline" class="hover:text-oasis-green transition duration-300">Timeline</a>
+                <!-- Updated button to signal future restricted area -->
+                <a href="#commitment" class="px-4 py-2 bg-oasis-blue text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300">Member Login (Future)</a>
+            </nav>
+            <button class="md:hidden text-gray-700 hover:text-oasis-green">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-oasis-blue text-white pt-24 pb-20 sm:pt-32 sm:pb-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl sm:text-6xl font-extrabold mb-4 leading-tight">
+                    Building the Future: <br class="sm:hidden"> A Diaspora Lifestyle Community
+                </h2>
+                <p class="text-xl sm:text-2xl font-light max-w-3xl mx-auto mb-8">
+                    The Oasis Housing Association is dedicated to acquiring affordable, high-quality land to develop a legally secure, integrated community with residential, commercial, and agricultural facilities in Zimbabwe.
+                </p>
+                <div class="space-x-4">
+                    <a href="#commitment" class="inline-block px-8 py-3 bg-white text-oasis-blue font-semibold rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        Secure Your Spot
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Vision & Strategy -->
+        <section id="vision" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
+                    Our Secure Path Forward
+                </h3>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Vision Card -->
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-lg border-t-4 border-oasis-green transition duration-500 hover:shadow-2xl">
+                        <div class="text-4xl text-oasis-green mb-4">🏡</div>
+                        <h4 class="text-xl font-semibold mb-3">Community Vision</h4>
+                        <p class="text-gray-600">We aim to create an integrated community with **residential, commercial, and small-scale farming** zones. This includes planned space for schools, hospitals, and business to support employment and high standards of living.</p>
+                    </div>
+
+                    <!-- Strategy Card 1: Exclusion of Harare -->
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-lg border-t-4 border-red-500 transition duration-500 hover:shadow-2xl">
+                        <div class="text-4xl text-red-500 mb-4">🚫</div>
+                        <h4 class="text-xl font-semibold mb-3">Strategic Land Shift</h4>
+                        <p class="text-gray-600">Based on financial capacity surveys, the plan to acquire land in **Harare Province has been ruled out**. This decision avoids high costs, congestion, and complex legal dramas associated with urban land.</p>
+                    </div>
+
+                    <!-- Strategy Card 2: New Location Focus -->
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-lg border-t-4 border-oasis-green transition duration-500 hover:shadow-2xl">
+                        <div class="text-4xl text-oasis-green mb-4">📍</div>
+                        <h4 class="text-xl font-semibold mb-3">New Acquisition Focus</h4>
+                        <p class="text-gray-600">The current strategy targets acquiring a **privately owned farm** located within a **one-hour radius of Harare**. This strategy ensures affordability, large plot sizes (minimum 1,000 sqm), and clean title deeds.</p>
+                    </div>
+                </div>
+
+                <!-- Plot Size and Quality -->
+                <div class="mt-12 text-center max-w-4xl mx-auto p-6 bg-gray-100 rounded-xl shadow-inner">
+                    <h4 class="text-2xl font-semibold mb-2 text-gray-700">Land Size and Architectural Control</h4>
+                    <p class="text-lg text-gray-700">The majority preference is for plot sizes between **1,000 and 2,000 square meters**. The association will implement a system of **pre-approved architectural plans** to maintain uniformity and quality across the development.</p>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- NEW SECTION: Financial Transparency Hub (RESTRICTED CONTENT) -->
+        <section id="transparency" class="py-16 sm:py-24 bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="restricted-draft">
+                    <p class="font-bold text-red-600">🔒 RESTRICTED ACCESS (DRAFT): Financial Details</p>
+                    <p class="text-sm text-red-500 mt-1">This section will require Member Login upon final launch to view live fund balances and detailed expenditure reports.</p>
+                </div>
+
+                <h3 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
+                    Financial Integrity & Funds Status
+                </h3>
+                <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-2xl border-2 border-oasis-blue">
+                    <p class="text-xl font-semibold text-center text-red-500 mb-6">
+                        Data for this section will be activated once the bank accounts are finalized and initial Commitment Fees are received.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <div class="p-4 bg-green-50 rounded-lg shadow-inner">
+                            <p class="text-sm font-medium text-gray-500">Total Funds Raised (Fees/Deposits)</p>
+                            <p class="text-3xl font-bold text-oasis-green mt-1">$0.00</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg shadow-inner">
+                            <p class="text-sm font-medium text-gray-500">Expenditures (Legal/Admin)</p>
+                            <p class="text-3xl font-bold text-yellow-600 mt-1">$0.00</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-lg shadow-inner">
+                            <p class="text-sm font-medium text-gray-500">Committed Member Count</p>
+                            <p class="text-3xl font-bold text-oasis-blue mt-1">0</p>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-center text-gray-600">
+                        *The Finance Committee is committed to providing **monthly transparency reports** with full legal and accounting documentation to all Founding Members.*
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION: Project Timeline -->
+        <section id="timeline" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
+                    Project Roadmap & Key Milestones
+                </h3>
+                <div class="max-w-4xl mx-auto">
+                    <!-- Timeline Steps Placeholder -->
+                    <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:w-0.5 before:bg-gray-200 before:transform">
+                        <div class="relative pl-12">
+                            <div class="absolute w-10 h-10 bg-oasis-green rounded-full text-white text-center font-bold flex items-center justify-center -left-0.5 shadow-xl">1</div>
+                            <h4 class="font-semibold text-xl mb-1 text-oasis-green">Phase 1: Legal Formalisation (Current)</h4>
+                            <p class="text-gray-600">Secure Commitment Fees, officially register the Oasis Housing Association, and finalize the Constitution and Rules & Regulations.</p>
+                        </div>
+                        <div class="relative pl-12">
+                            <div class="absolute w-10 h-10 bg-gray-400 rounded-full text-white text-center font-bold flex items-center justify-center -left-0.5 shadow-xl">2</div>
+                            <h4 class="font-semibold text-xl mb-1 text-gray-700">Phase 2: Land Acquisition (Target: Q4 2025)</h4>
+                            <p class="text-gray-600">Engage legal counsel for rigorous **due diligence** on shortlisted private farms and execute the land purchase using member deposits.</p>
+                        </div>
+                        <div class="relative pl-12">
+                            <div class="absolute w-10 h-10 bg-gray-400 rounded-full text-white text-center font-bold flex items-center justify-center -left-0.5 shadow-xl">3</div>
+                            <h4 class="font-semibold text-xl mb-1 text-gray-700">Phase 3: Planning & Permits (Pending Land Acquisition)</h4>
+                            <p class="text-gray-600">Engage Town Planners and Surveyors. Apply for the crucial **subdivision permit** to create individual stands and secure full legal compliance.</p>
+                        </div>
+                        <div class="relative pl-12">
+                            <div class="absolute w-10 h-10 bg-gray-400 rounded-full text-white text-center font-bold flex items-center justify-center -left-0.5 shadow-xl">4</div>
+                            <h4 class="font-semibold text-xl mb-1 text-gray-700">Phase 4: Infrastructure & Development</h4>
+                            <p class="text-gray-600">Commence development of roads, utilities (water, power), commercial zones, and social facilities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership and Integrity Section (Existing) -->
+        <section id="leadership" class="py-16 sm:py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">
+                    Meet Your Committed Leadership Team
+                </h3>
+                <p class="text-center text-lg text-gray-600 mb-12">
+                    Transparency and professionalism are our core values. These are the volunteer leaders driving the association forward.
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+
+                    <!-- Leader Cards (Existing) -->
+                    <!-- Mimi -->
+                    <div class="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
+                        <img class="w-20 h-20 rounded-full mx-auto mb-3 object-cover bg-gray-200" src="https://placehold.co/80x80/22c55e/ffffff?text=M" alt="Mimi">
+                        <h5 class="text-xl font-semibold">Mimi</h5>
+                        <p class="text-oasis-green font-medium">Chair / Founder</p>
+                        <p class="text-sm text-gray-500 mt-2">Drove strategic land decision; confirmed association name.</p>
+                    </div>
+                    <!-- Sekai -->
+                    <div class="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
+                        <img class="w-20 h-20 rounded-full mx-auto mb-3 object-cover bg-gray-200" src="https://placehold.co/80x80/0e7490/ffffff?text=S" alt="Sekai">
+                        <h5 class="text-xl font-semibold">Sekai</h5>
+                        <p class="text-oasis-green font-medium">Executive Coordinator</p>
+                        <p class="text-sm text-gray-500 mt-2">Oversaw committee updates and meeting flow.</p>
+                    </div>
+                    <!-- Frank -->
+                    <div class="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
+                        <img class="w-20 h-20 rounded-full mx-auto mb-3 object-cover bg-gray-200" src="https://placehold.co/80x80/6366f1/ffffff?text=F" alt="Frank">
+                        <h5 class="text-xl font-semibold">Frank</h5>
+                        <p class="text-oasis-green font-medium">Legal Team Lead</p>
+                        <p class="text-sm text-gray-500 mt-2">Practicing attorney; drafted the **Draft Constitution**.</p>
+                    </div>
+                    <!-- Biggie (Gima Rowan) -->
+                    <div class="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
+                        <img class="w-20 h-20 rounded-full mx-auto mb-3 object-cover bg-gray-200" src="https://placehold.co/80x80/f97316/ffffff?text=B" alt="Biggie">
+                        <h5 class="text-xl font-semibold">Biggie (Gima Rowan)</h5>
+                        <p class="text-oasis-green font-medium">Finance Committee Lead</p>
+                        <p class="text-sm text-gray-500 mt-2">Proposed initial **Commitment and Annual Fees**.</p>
+                    </div>
+                    <!-- Fiona -->
+                    <div class="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
+                        <img class="w-20 h-20 rounded-full mx-auto mb-3 object-cover bg-gray-200" src="https://placehold.co/80x80/ec4899/ffffff?text=Fi" alt="Fiona">
+                        <h5 class="text-xl font-semibold">Fiona</h5>
+                        <p class="text-oasis-green font-medium">Ethics Committee Lead</p>
+                        <p class="text-sm text-gray-500 mt-2">Responsible for the **Rules and Regulations** document.</p>
+                    </div>
+                    <!-- Sydney -->
+                    <div class="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
+                        <img class="w-20 h-20 rounded-full mx-auto mb-3 object-cover bg-gray-200" src="https://placehold.co/80x80/facc15/ffffff?text=Sy" alt="Sydney">
+                        <h5 class="text-xl font-semibold">Sydney</h5>
+                        <p class="text-oasis-green font-medium">Technical Services Lead</p>
+                        <p class="text-sm text-gray-500 mt-2">Leads engineers/project managers for development.</p>
+                    </div>
+                    <!-- Tafadzwa Mukonda -->
+                    <div class="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
+                        <img class="w-20 h-20 rounded-full mx-auto mb-3 object-cover bg-gray-200" src="https://placehold.co/80x80/10b981/ffffff?text=T" alt="Tafadzwa">
+                        <h5 class="text-xl font-semibold">Tafadzwa Mukonda</h5>
+                        <p class="text-oasis-green font-medium">Media & Graphics Lead</p>
+                        <p class="text-sm text-gray-500 mt-2">Manages branding, web, and monetization strategy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NEW SECTION: Legal Documents & Land Details (RESTRICTED CONTENT) -->
+        <section id="documents" class="py-16 sm:py-24 bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="restricted-draft">
+                    <p class="font-bold text-red-600">🔒 RESTRICTED ACCESS (DRAFT): Legal and Land Details</p>
+                    <p class="text-sm text-red-500 mt-1">Finalized legal documents and specific land maps will require Member Login for security and version control.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    
+                    <!-- Legal Documents -->
+                    <div>
+                        <h3 class="text-3xl font-bold mb-6 text-gray-900 flex items-center">
+                           <span class="text-4xl mr-3 text-oasis-green">⚖️</span> Governance & Documents
+                        </h3>
+                        <p class="text-lg text-gray-700 mb-4">
+                            The legal foundation of Oasis Housing Association ensures long-term security and stability for all members.
+                        </p>
+                        <ul class="space-y-4">
+                            <li>
+                                <a href="#" class="block p-4 bg-white rounded-xl shadow-md hover:bg-gray-50 transition duration-300 border-l-4 border-oasis-blue">
+                                    <p class="font-semibold text-lg text-oasis-blue">Association Constitution (Final)</p>
+                                    <p class="text-sm text-gray-500">Document finalizing the structure, roles, and member rights. **(Coming Soon - Post-Registration)**</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block p-4 bg-white rounded-xl shadow-md hover:bg-gray-50 transition duration-300 border-l-4 border-oasis-blue">
+                                    <p class="font-semibold text-lg text-oasis-blue">Community Rules & Regulations</p>
+                                    <p class="text-sm text-gray-500">Details on architecture, noise, levies, and communal area usage. **(Drafting Commences Post-Registration)**</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Land Details -->
+                    <div>
+                        <h3 class="text-3xl font-bold mb-6 text-gray-900 flex items-center">
+                            <span class="text-4xl mr-3 text-oasis-green">🗺️</span> The Future Home Site
+                        </h3>
+                        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+                            <img class="w-full h-48 object-cover rounded-lg mb-4 bg-gray-300" src="https://placehold.co/600x200/cccccc/000000?text=MAP+PLACEHOLDER" alt="Location Map Placeholder">
+                            <p class="text-lg font-semibold text-gray-700">Specific Location and Details To Be Confirmed.</p>
+                            <p class="text-sm text-gray-500 mt-2">The land will be a secure, large-scale private farm with clean title deeds, strategically located within one hour of Harare. Full maps and features will be published here upon acquisition.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Commitment and Next Steps (RESTRICTED CONTENT) -->
+        <section id="commitment" class="py-16 sm:py-24">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="restricted-draft">
+                    <p class="font-bold text-red-600">🔒 RESTRICTED ACCESS (DRAFT): Fee and Deposit Requirements</p>
+                    <p class="text-sm text-red-500 mt-1">Specific financial requirements and exclusive benefits for Founding Members will require Member Login.</p>
+                </div>
+
+                <h3 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
+                    Your Commitment to Becoming a Founding Member
+                </h3>
+
+                <div class="bg-white p-6 sm:p-10 rounded-xl shadow-2xl border-2 border-oasis-green space-y-8">
+                    
+                    <!-- Founding Member Status -->
+                    <div class="border-b pb-4">
+                        <h4 class="text-2xl font-bold text-oasis-green flex items-center mb-4">
+                            <span class="mr-3">⭐</span> Initial Founding Contributions
+                        </h4>
+                        <!-- NEW FORMAT: Key-Value Boxes -->
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
+                                <p class="text-sm font-medium text-gray-600">Commitment Fee (Once-off)</p>
+                                <p class="text-2xl font-extrabold text-blue-700 mt-1">US$100</p>
+                                <p class="text-xs text-red-500 font-semibold">Non-Refundable</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border-2 border-green-200">
+                                <p class="text-sm font-medium text-gray-600">Annual Membership Fee</p>
+                                <p class="text-2xl font-extrabold text-oasis-green mt-1">US$100</p>
+                                <p class="text-xs text-gray-500 font-semibold">Paid Yearly</p>
+                            </div>
+                        </div>
+                        <p class="text-base text-gray-700 mt-4">
+                            These funds secure your position and finance the immediate legal registration of the association.
+                        </p>
+                    </div>
+
+                    <!-- Financial Target -->
+                    <div class="border-b pb-4">
+                        <h4 class="text-2xl font-bold text-oasis-green flex items-center mb-2">
+                            <span class="mr-3">💰</span> Land Deposit Goal
+                        </h4>
+                        <p class="text-lg text-gray-700">
+                            The collective target is for all members to have the full deposit ready for immediate land purchase upon identification.
+                        </p>
+                        <ul class="list-disc list-inside ml-4 mt-3 text-gray-600 space-y-1">
+                            <li>**Deposit Target:** **US$10,000** per member.</li>
+                            <li>**Deadline:** December 31, 2025.</li>
+                            <li>*Note:* Members who can only commit **US$5,000** by the deadline must commit to a monthly payment plan for the remainder.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Key Benefits -->
+                    <div>
+                        <h4 class="text-2xl font-bold text-oasis-green flex items-center mb-2">
+                            <span class="mr-3">✅</span> Exclusive Founding Member Benefits
+                        </h4>
+                        <p class="text-lg text-gray-700">
+                            Your early commitment guarantees premium advantages:
+                        </p>
+                        <ul class="list-disc list-inside ml-4 mt-3 text-gray-600 space-y-1">
+                            <li>More **Affordable Land Rates** compared to later members.</li>
+                            <li>**First Right of Refusal** on valuable commercial plots.</li>
+                            <li>**Discounts** on future social facilities (e.g., gyms, schools).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <p class="text-xl font-medium text-gray-700">
+                        Ready to secure your place? Complete your fee payment and review the Draft Constitution today.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact/Footer -->
+        <footer id="contact" class="bg-gray-800 text-white py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p class="mb-4 text-lg font-semibold">Oasis Housing Association</p>
+                <p class="text-sm text-gray-400">&copy; 2025 Oasis Housing Association. All rights reserved.</p>
+                <p class="text-sm text-gray-400 mt-2">For urgent enquiries, please use the designated WhatsApp group.</p>
+            </div>
+        </footer>
+
+    </main>
+</body>
+</html>
