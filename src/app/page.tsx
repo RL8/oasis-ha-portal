@@ -42,6 +42,12 @@ export default function Home() {
             <a href="#transparency" className="hover:text-oasis-green transition duration-300">Finance</a>
             <a href="#leadership" className="hover:text-oasis-green transition duration-300">Leadership</a>
             <a href="#timeline" className="hover:text-oasis-green transition duration-300">Timeline</a>
+            <a 
+              href="/voting"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition duration-300 font-semibold"
+            >
+              🗳️ Voting System
+            </a>
             <button 
               onClick={() => setShowLoginPopup(true)}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 font-semibold"
@@ -85,12 +91,19 @@ export default function Home() {
             >
               Leadership
           </a>
-          <a
+            <a
               href="#timeline" 
               className="block py-2 text-gray-700 hover:text-oasis-green transition duration-300 font-medium"
               onClick={() => setShowMobileMenu(false)}
             >
               Timeline
+            </a>
+            <a
+              href="/voting" 
+              className="block py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300 font-semibold"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              🗳️ Voting System
             </a>
             <button 
               onClick={() => {
