@@ -346,7 +346,7 @@ export default function ProposalCard({
               <button
                 type="submit"
                 disabled={isSubmittingComment || !newComment.trim()}
-                className="px-4 py-1 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition duration-300"
+                className="px-4 py-1 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed transition duration-300"
               >
                 {isSubmittingComment ? 'Posting...' : 'Post Comment'}
               </button>

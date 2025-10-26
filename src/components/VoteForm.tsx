@@ -128,7 +128,7 @@ export default function VoteForm({ question, currentVote, onVote, isLockedIn, ti
         <button
           type="submit"
           disabled={isSubmitting || selectedOptions.length === 0 || !justification.trim()}
-          className="px-4 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition duration-300"
+          className="px-4 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed transition duration-300"
         >
           {isSubmitting ? 'Submitting...' : currentVote ? 'Update Vote' : 'Cast Vote'}
         </button>

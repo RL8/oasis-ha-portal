@@ -390,7 +390,7 @@ function ProposalCreationForm({ onSubmit }: { onSubmit: (title: string, descript
         <button
           type="submit"
           disabled={isSubmitting || !title.trim() || !description.trim()}
-          className="px-6 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition duration-300"
+          className="px-6 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed transition duration-300"
         >
           {isSubmitting ? 'Creating...' : 'Create Proposal'}
         </button>

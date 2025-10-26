@@ -313,7 +313,7 @@ export default function AdminPage() {
                         <button
                           onClick={() => handleProposalStatusChange(proposal.id, 'active')}
                           disabled={actionLoading === proposal.id}
-                          className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 disabled:bg-gray-400 text-sm"
+                          className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 disabled:bg-gray-500 disabled:text-gray-300 text-sm"
                         >
                           {actionLoading === proposal.id ? 'Updating...' : 'Approve'}
                         </button>
@@ -322,7 +322,7 @@ export default function AdminPage() {
                         <button
                           onClick={() => handleProposalStatusChange(proposal.id, 'draft')}
                           disabled={actionLoading === proposal.id}
-                          className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700 disabled:bg-gray-400 text-sm"
+                          className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700 disabled:bg-gray-500 disabled:text-gray-300 text-sm"
                         >
                           {actionLoading === proposal.id ? 'Updating...' : 'Reject'}
                         </button>

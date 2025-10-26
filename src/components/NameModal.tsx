@@ -116,7 +116,7 @@ export default function NameModal({ isOpen, onClose, onSubmit, action, required 
             <button
               type="submit"
               disabled={isSubmitting || !firstName.trim() || !lastName.trim()}
-              className="px-4 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition duration-300"
+              className="px-4 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed transition duration-300"
             >
               {isSubmitting ? 'Submitting...' : 'Continue'}
             </button>
