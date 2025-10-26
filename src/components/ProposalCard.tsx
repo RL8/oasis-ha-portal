@@ -79,9 +79,13 @@ export default function ProposalCard({
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${
               proposal.status === 'active' 
                 ? 'bg-green-100 text-green-800' 
+                : proposal.status === 'completed'
+                ? 'bg-gray-100 text-gray-800'
                 : 'bg-yellow-100 text-yellow-800'
             }`}>
-              {proposal.status === 'active' ? 'Active' : 'Draft - Awaiting Approval'}
+              {proposal.status === 'active' ? 'Active' : 
+               proposal.status === 'completed' ? 'Voting Ended' : 
+               'Draft - Awaiting Approval'}
             </span>
             <span>Created: {new Date(proposal.createdAt).toLocaleDateString()}</span>
             <span>Lock-in: {new Date(proposal.lockInDate).toLocaleDateString()}</span>
@@ -95,7 +99,7 @@ export default function ProposalCard({
       </div>
 
       {/* Vote Results */}
-      {proposal.status === 'active' && (
+      {(proposal.status === 'active' || proposal.status === 'completed') && (
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">
             <h4 className="font-semibold text-gray-900">Current Vote Results</h4>

@@ -20,7 +20,7 @@ export interface Proposal {
   id: string;
   title: string;
   description: string;
-  status: 'draft' | 'active';
+  status: 'draft' | 'active' | 'completed';
   createdBy: string;
   createdAt: string;
   lockInDate: string;
@@ -67,7 +67,7 @@ export const validateProposal = (proposal: unknown): proposal is Proposal => {
          'lockInDate' in proposal &&
          typeof (proposal as Record<string, unknown>).title === 'string' &&
          typeof (proposal as Record<string, unknown>).description === 'string' &&
-         ['draft', 'active'].includes((proposal as Record<string, unknown>).status as string) &&
+         ['draft', 'active', 'completed'].includes((proposal as Record<string, unknown>).status as string) &&
          typeof (proposal as Record<string, unknown>).createdBy === 'string' &&
          typeof (proposal as Record<string, unknown>).lockInDate === 'string';
 };

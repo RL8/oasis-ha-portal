@@ -3,7 +3,7 @@
     "id": "prop1",
     "title": "Should OHA purchase the 50-acre farm in Mazowe?",
     "description": "We have identified a 50-acre privately owned farm in Mazowe, approximately 45 minutes from Harare. The property has clean title deeds, good road access, and potential for subdivision. The asking price is $2.5M USD, which works out to approximately $50,000 per acre. This would provide enough land for 25-30 residential plots of 1,000-2,000 sqm each, plus commercial and agricultural zones.",
-    "status": "active",
+    "status": "completed",
     "createdBy": "192.168.1.1",
     "createdAt": "2025-10-20T09:00:00Z",
     "lockInDate": "2025-10-30T23:59:59Z",
@@ -17,21 +17,21 @@
     "id": "prop2",
     "title": "Should membership fees increase to $150 annually?",
     "description": "Due to increased legal and administrative costs, the Finance Committee proposes increasing annual membership fees from $100 to $150. This increase would help cover: legal registration costs, professional services, land due diligence, and ongoing administrative expenses. The increase would take effect from January 2026.",
-    "status": "draft",
+    "status": "completed",
     "createdBy": "192.168.1.2",
     "createdAt": "2025-10-24T14:30:00Z",
     "lockInDate": "2025-11-01T23:59:59Z",
     "votes": {
-      "yes": 0,
-      "no": 0,
-      "abstain": 0
+      "yes": 8,
+      "no": 5,
+      "abstain": 2
     }
   },
   "prop3": {
     "id": "prop3",
     "title": "Should we prioritize commercial plots in the first development phase?",
     "description": "The Technical Services Committee suggests prioritizing commercial plot development in Phase 1 to generate early revenue for infrastructure development. This would involve developing 5-8 commercial plots first, then using rental income to fund residential infrastructure. Alternative: develop residential plots first to secure member commitments.",
-    "status": "active",
+    "status": "completed",
     "createdBy": "192.168.1.3",
     "createdAt": "2025-10-18T16:45:00Z",
     "lockInDate": "2025-10-25T23:59:59Z",
@@ -45,7 +45,7 @@
     "id": "prop4",
     "title": "Should OHA establish a community garden for all members?",
     "description": "Proposal to allocate 2 acres of the acquired land for a community garden where all members can grow vegetables and fruits. This would promote food security, community bonding, and sustainable living practices. The garden would be managed collectively with assigned plots for each member family.",
-    "status": "active",
+    "status": "completed",
     "createdBy": "192.168.1.1",
     "createdAt": "2025-10-22T10:15:00Z",
     "lockInDate": "2025-11-05T23:59:59Z",
@@ -59,7 +59,7 @@
     "id": "prop5",
     "title": "Should OHA hire a professional property manager?",
     "description": "Proposal to hire a professional property manager to handle day-to-day operations, maintenance coordination, and member services. This would cost approximately $2,000 per month but would ensure professional management of the community facilities and provide 24/7 support for members.",
-    "status": "active",
+    "status": "completed",
     "createdBy": "192.168.1.2",
     "createdAt": "2025-10-15T11:20:00Z",
     "lockInDate": "2025-10-22T23:59:59Z",
@@ -67,6 +67,216 @@
       "yes": 4,
       "no": 7,
       "abstain": 2
+    }
+  },
+  "prop6": {
+    "id": "prop6",
+    "title": "Should OHA establish a security committee?",
+    "description": "Proposal to create a dedicated security committee responsible for community safety, access control, and emergency response coordination. This committee would work with local security services and establish protocols for member safety.",
+    "status": "completed",
+    "createdBy": "192.168.1.4",
+    "createdAt": "2025-10-10T08:30:00Z",
+    "lockInDate": "2025-10-17T23:59:59Z",
+    "votes": {
+      "yes": 15,
+      "no": 1,
+      "abstain": 0
+    }
+  },
+  "prop7": {
+    "id": "prop7",
+    "title": "Should OHA implement renewable energy infrastructure?",
+    "description": "Proposal to install solar panels and renewable energy systems for the community, reducing long-term energy costs and promoting environmental sustainability. Initial investment estimated at $50,000.",
+    "status": "completed",
+    "createdBy": "192.168.1.5",
+    "createdAt": "2025-10-08T14:20:00Z",
+    "lockInDate": "2025-10-15T23:59:59Z",
+    "votes": {
+      "yes": 11,
+      "no": 4,
+      "abstain": 1
+    }
+  },
+  "prop8": {
+    "id": "prop8",
+    "title": "Should OHA create a member emergency fund?",
+    "description": "Establish a $10,000 emergency fund to assist members facing unexpected financial hardships, with clear guidelines for fund access and repayment terms.",
+    "status": "completed",
+    "createdBy": "192.168.1.6",
+    "createdAt": "2025-10-05T16:45:00Z",
+    "lockInDate": "2025-10-12T23:59:59Z",
+    "votes": {
+      "yes": 9,
+      "no": 6,
+      "abstain": 1
+    }
+  },
+  "admin1": {
+    "id": "admin1",
+    "title": "Should OHA adopt E-Docusign for all administrative document signing?",
+    "description": "Implement E-Docusign as the standard method for securing signatures on administrative documents, replacing traditional paper-based signing processes.",
+    "status": "active",
+    "createdBy": "192.168.1.7",
+    "createdAt": "2025-01-26T10:00:00Z",
+    "lockInDate": "2025-02-02T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "admin2": {
+    "id": "admin2",
+    "title": "Should committee leaders send electronic signatures directly to Richards Inc Attorneys during Coordinator's travel?",
+    "description": "Due to the Coordinator's impending travel to Zimbabwe, establish a temporary process where committee leaders send their full names and electronic signatures directly to Richards Inc Attorneys for immediate document assembly.",
+    "status": "active",
+    "createdBy": "192.168.1.8",
+    "createdAt": "2025-01-26T10:15:00Z",
+    "lockInDate": "2025-02-05T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "admin3": {
+    "id": "admin3",
+    "title": "Should OHA authorize a non-Finance Committee member to sign administrative documents?",
+    "description": "Approve the Coordinator's plan to identify and authorize a suitable non-committee signatory from the members' group to assist with document signing requirements.",
+    "status": "active",
+    "createdBy": "192.168.1.9",
+    "createdAt": "2025-01-26T10:30:00Z",
+    "lockInDate": "2025-02-08T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "website1": {
+    "id": "website1",
+    "title": "Should OHA prioritize website development over committee restructuring timeline?",
+    "description": "Decide whether to proceed immediately with website development despite planned committee changes on or after January 31st, given the urgent need for member profile information.",
+    "status": "active",
+    "createdBy": "192.168.1.10",
+    "createdAt": "2025-01-26T11:00:00Z",
+    "lockInDate": "2025-02-10T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "website2": {
+    "id": "website2",
+    "title": "Should website development proceed using only members who have paid commitment fees?",
+    "description": "Approve the Diaspora Project Lead's directive to restrict website development participation to members who have completed their financial commitments, excluding those with outstanding payments.",
+    "status": "active",
+    "createdBy": "192.168.1.11",
+    "createdAt": "2025-01-26T11:15:00Z",
+    "lockInDate": "2025-02-15T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "website3": {
+    "id": "website3",
+    "title": "Should OHA set a deadline for member website profile information submission?",
+    "description": "Establish a specific deadline for all members to submit their website profile information, with consequences for non-compliance (e.g., exclusion from initial website launch).",
+    "status": "active",
+    "createdBy": "192.168.1.12",
+    "createdAt": "2025-01-26T11:30:00Z",
+    "lockInDate": "2025-02-20T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "marketing1": {
+    "id": "marketing1",
+    "title": "Should OHA create a formal narrative explaining the group's purpose and membership requirements?",
+    "description": "Develop a comprehensive document outlining what OHA is about, membership fees, expected contributions, and estimated timelines to improve marketing effectiveness and member recruitment.",
+    "status": "active",
+    "createdBy": "192.168.1.13",
+    "createdAt": "2025-01-26T12:00:00Z",
+    "lockInDate": "2025-03-01T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "marketing2": {
+    "id": "marketing2",
+    "title": "Should OHA allocate budget for professional marketing materials development?",
+    "description": "Approve funding for creating professional marketing materials including brochures, digital content, and promotional materials to replace current reliance on personal social media and informal fliers.",
+    "status": "active",
+    "createdBy": "192.168.1.14",
+    "createdAt": "2025-01-26T12:15:00Z",
+    "lockInDate": "2025-03-15T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "marketing3": {
+    "id": "marketing3",
+    "title": "Should the official website serve as the primary resource for potential member inquiries?",
+    "description": "Establish the official website as the main destination for directing potential members to learn about OHA, with all other marketing efforts pointing to the website for detailed information.",
+    "status": "active",
+    "createdBy": "192.168.1.15",
+    "createdAt": "2025-01-26T12:30:00Z",
+    "lockInDate": "2025-03-30T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "legal1": {
+    "id": "legal1",
+    "title": "Should OHA engage Law firm of Mr Maposa for group land buying legal services?",
+    "description": "Approve engagement of Law firm of Mr Maposa, which has existing knowledge and experience with group buying transactions, as OHA's legal counsel for land acquisition activities.",
+    "status": "active",
+    "createdBy": "192.168.1.16",
+    "createdAt": "2025-01-26T13:00:00Z",
+    "lockInDate": "2025-04-15T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "legal2": {
+    "id": "legal2",
+    "title": "Should OHA engage Takundwa Mbereko Attorneys for group land buying legal services?",
+    "description": "Approve engagement of Takundwa Mbereko Attorneys, recommended by a member with personal experience using them for due diligence in Zimbabwe, as OHA's legal counsel for land acquisition activities.",
+    "status": "active",
+    "createdBy": "192.168.1.17",
+    "createdAt": "2025-01-26T13:15:00Z",
+    "lockInDate": "2025-04-30T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
+    }
+  },
+  "legal3": {
+    "id": "legal3",
+    "title": "Should OHA require member due diligence and voting for legal counsel selection?",
+    "description": "Establish a process where all members conduct their own due diligence on recommended law firms and participate in a voting poll to select the final legal counsel, rather than making the decision at committee level only.",
+    "status": "active",
+    "createdBy": "192.168.1.18",
+    "createdAt": "2025-01-26T13:30:00Z",
+    "lockInDate": "2025-05-31T23:59:59Z",
+    "votes": {
+      "yes": 0,
+      "no": 0,
+      "abstain": 0
     }
   }
 }
