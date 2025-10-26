@@ -14,6 +14,10 @@ export default function VotingPage() {
   const [showNameModal, setShowNameModal] = useState(false);
   const [nameModalAction, setNameModalAction] = useState<'vote' | 'comment' | 'propose'>('vote');
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
+  
+  // Client-side state for demo mode
+  const [clientVotes, setClientVotes] = useState<Record<string, any>>({});
+  const [clientComments, setClientComments] = useState<Comment[]>([]);
 
   // Load data on component mount
   useEffect(() => {
@@ -85,7 +89,27 @@ export default function VotingPage() {
       });
 
       if (response.ok) {
-        await loadData(); // Reload data to get updated votes
+        const result = await response.json();
+        
+        // Update client-side state for demo mode
+        setClientVotes(prev => ({
+          ...prev,
+          [proposalId]: {
+            choice,
+            justification,
+            timestamp: new Date().toISOString()
+          }
+        }));
+        
+        // Update proposals with new vote totals
+        setProposals(prev => prev.map(proposal => 
+          proposal.id === proposalId 
+            ? { ...proposal, votes: result.totals }
+            : proposal
+        ));
+        
+        // Show success message
+        alert(result.message || 'Vote recorded successfully!');
       } else {
         const error = await response.json();
         alert(error.error || 'Error submitting vote');
@@ -119,7 +143,13 @@ export default function VotingPage() {
       });
 
       if (response.ok) {
-        await loadData(); // Reload data to get updated comments
+        const result = await response.json();
+        
+        // Update client-side state for demo mode
+        setClientComments(prev => [...prev, result.comment]);
+        
+        // Show success message
+        alert(result.message || 'Comment posted successfully!');
       } else {
         const error = await response.json();
         alert(error.error || 'Error submitting comment');
@@ -253,8 +283,9 @@ export default function VotingPage() {
           ) : (
             <ProposalGroups 
               proposals={proposals}
-              comments={comments}
+              comments={[...comments, ...clientComments]}
               currentUser={currentUser}
+              clientVotes={clientVotes}
               onVote={handleVote}
               onComment={handleComment}
             />
@@ -352,12 +383,14 @@ function ProposalGroups({
   proposals, 
   comments, 
   currentUser, 
+  clientVotes,
   onVote, 
   onComment 
 }: { 
   proposals: Proposal[]; 
   comments: Comment[]; 
   currentUser: User | null; 
+  clientVotes: Record<string, any>;
   onVote: (proposalId: string, choice: 'yes' | 'no' | 'abstain', justification: string) => void;
   onComment: (proposalId: string, text: string) => void;
 }) {
@@ -448,6 +481,7 @@ function ProposalGroups({
                     proposal={proposal}
                     comments={comments}
                     currentUser={currentUser}
+                    clientVotes={clientVotes}
                     onVote={onVote}
                     onComment={onComment}
                   />

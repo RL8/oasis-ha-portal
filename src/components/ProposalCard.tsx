@@ -8,6 +8,7 @@ interface ProposalCardProps {
   proposal: Proposal;
   comments: Comment[];
   currentUser?: any;
+  clientVotes?: Record<string, any>;
   onVote: (proposalId: string, choice: 'yes' | 'no' | 'abstain', justification: string) => void;
   onComment: (proposalId: string, text: string) => void;
 }
@@ -16,6 +17,7 @@ export default function ProposalCard({
   proposal, 
   comments, 
   currentUser, 
+  clientVotes,
   onVote, 
   onComment
 }: ProposalCardProps) {
@@ -24,7 +26,7 @@ export default function ProposalCard({
   const [isSubmittingComment, setIsSubmittingComment] = useState(false);
 
   const proposalComments = comments.filter(comment => comment.proposalId === proposal.id);
-  const currentVote = currentUser?.votes[proposal.id];
+  const currentVote = clientVotes?.[proposal.id] || currentUser?.votes[proposal.id];
   const isLockedIn = new Date() > new Date(proposal.lockInDate);
   
   const timeUntilLockIn = () => {
