@@ -233,7 +233,7 @@ export default function VotingPage() {
                 <span className="text-white text-2xl font-black">O</span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-oasis-green">OHA Voting System v2</h1>
+                <h1 className="text-2xl font-bold text-oasis-green">OHA Voting System v2.1</h1>
                 <p className="text-sm text-gray-600">Democratic Decision Making</p>
               </div>
             </div>
