@@ -298,7 +298,7 @@ export default function AdminPage() {
                       <div className="flex items-center space-x-4 text-sm text-gray-600">
                         <span>Created: {new Date(proposal.createdAt).toLocaleDateString()}</span>
                         <span>Lock-in: {new Date(proposal.lockInDate).toLocaleDateString()}</span>
-                        <span>Votes: {proposal.votes.yes + proposal.votes.no + proposal.votes.abstain}</span>
+                        <span>Questions: {proposal.questions.length}</span>
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">

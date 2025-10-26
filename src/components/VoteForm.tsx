@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Vote, Question } from '../types/voting';
 
 interface VoteFormProps {
-  proposalId: string;
   question: Question;
   currentVote?: Vote;
   onVote: (selectedOptions: string[], justification: string) => void;
@@ -12,7 +11,7 @@ interface VoteFormProps {
   timeUntilLockIn: string;
 }
 
-export default function VoteForm({ proposalId, question, currentVote, onVote, isLockedIn, timeUntilLockIn }: VoteFormProps) {
+export default function VoteForm({ question, currentVote, onVote, isLockedIn, timeUntilLockIn }: VoteFormProps) {
   const [selectedOptions, setSelectedOptions] = useState<string[]>(
     currentVote?.selectedOptions || []
   );

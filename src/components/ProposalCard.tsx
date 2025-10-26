@@ -191,7 +191,7 @@ export default function ProposalCard({
                       }).join(', ')}
                     </div>
                     <div className="text-xs text-blue-600 mt-1">
-                      "{currentVote.justification}"
+                      &ldquo;{currentVote.justification}&rdquo;
                     </div>
                   </div>
                 )}
@@ -202,7 +202,6 @@ export default function ProposalCard({
             {proposal.status === 'active' && (
               <div className="mb-6">
                 <VoteForm
-                  proposalId={proposal.id}
                   question={question}
                   currentVote={currentVote}
                   onVote={(selectedOptions, justification) => 
