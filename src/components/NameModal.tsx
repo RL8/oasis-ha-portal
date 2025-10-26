@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Button from './Button';
 
 interface NameModalProps {
   isOpen: boolean;
@@ -105,21 +106,21 @@ export default function NameModal({ isOpen, onClose, onSubmit, action, required 
 
           <div className={`flex ${required ? 'justify-end' : 'justify-end space-x-3'} pt-4`}>
             {!required && (
-              <button
+              <Button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition duration-300"
+                variant="secondary"
               >
                 Cancel
-              </button>
+              </Button>
             )}
-            <button
+            <Button
               type="submit"
-              disabled={isSubmitting || !firstName.trim() || !lastName.trim()}
-              className="px-4 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed transition duration-300"
+              disabled={!firstName.trim() || !lastName.trim()}
+              isLoading={isSubmitting}
             >
-              {isSubmitting ? 'Submitting...' : 'Continue'}
-            </button>
+              Continue
+            </Button>
           </div>
         </form>
       </div>

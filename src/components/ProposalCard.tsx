@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Proposal, Comment, Question } from '../types/voting';
 import VoteForm from './VoteForm';
+import Button from './Button';
 
 interface ProposalCardProps {
   proposal: Proposal;
@@ -336,20 +337,22 @@ export default function ProposalCard({
               required
             />
             <div className="flex justify-end space-x-3">
-              <button
+              <Button
                 type="button"
                 onClick={() => setShowCommentForm(false)}
-                className="px-3 py-1 text-gray-600 hover:text-gray-800 transition duration-300"
+                variant="secondary"
+                className="px-3 py-1"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
-                disabled={isSubmittingComment || !newComment.trim()}
-                className="px-4 py-1 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed transition duration-300"
+                disabled={!newComment.trim()}
+                isLoading={isSubmittingComment}
+                className="px-4 py-1"
               >
-                {isSubmittingComment ? 'Posting...' : 'Post Comment'}
-              </button>
+                Post Comment
+              </Button>
             </div>
           </form>
         )}

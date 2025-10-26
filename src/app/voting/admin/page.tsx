@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Proposal, Comment, User } from '../../../types/voting';
+import Button from '../../../components/Button';
 
 interface AdminData {
   users: User[];
@@ -147,12 +148,12 @@ export default function AdminPage() {
               />
             </div>
 
-            <button
+            <Button
               type="submit"
-              className="w-full px-4 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 transition duration-300"
+              className="w-full"
             >
               Access Admin Panel
-            </button>
+            </Button>
           </form>
 
           <div className="mt-6 text-center">
@@ -310,22 +311,24 @@ export default function AdminPage() {
                         {proposal.status}
                       </span>
                       {proposal.status === 'draft' && (
-                        <button
+                        <Button
                           onClick={() => handleProposalStatusChange(proposal.id, 'active')}
-                          disabled={actionLoading === proposal.id}
-                          className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 disabled:bg-gray-500 disabled:text-gray-300 text-sm"
+                          isLoading={actionLoading === proposal.id}
+                          variant="success"
+                          className="px-3 py-1 text-sm"
                         >
-                          {actionLoading === proposal.id ? 'Updating...' : 'Approve'}
-                        </button>
+                          Approve
+                        </Button>
                       )}
                       {proposal.status === 'active' && (
-                        <button
+                        <Button
                           onClick={() => handleProposalStatusChange(proposal.id, 'draft')}
-                          disabled={actionLoading === proposal.id}
-                          className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700 disabled:bg-gray-500 disabled:text-gray-300 text-sm"
+                          isLoading={actionLoading === proposal.id}
+                          variant="warning"
+                          className="px-3 py-1 text-sm"
                         >
-                          {actionLoading === proposal.id ? 'Updating...' : 'Reject'}
-                        </button>
+                          Reject
+                        </Button>
                       )}
                     </div>
                   </div>

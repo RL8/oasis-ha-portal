@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Proposal, Comment, User } from '../../types/voting';
 import ProposalCard from '../../components/ProposalCard';
 import NameModal from '../../components/NameModal';
+import Button from '../../components/Button';
 
 export default function VotingPage() {
   const [proposals, setProposals] = useState<Proposal[]>([]);
@@ -387,13 +388,14 @@ function ProposalCreationForm({ onSubmit }: { onSubmit: (title: string, descript
       </div>
 
       <div className="flex justify-end">
-        <button
+        <Button
           type="submit"
-          disabled={isSubmitting || !title.trim() || !description.trim()}
-          className="px-6 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed transition duration-300"
+          disabled={!title.trim() || !description.trim()}
+          isLoading={isSubmitting}
+          className="px-6 py-2"
         >
-          {isSubmitting ? 'Creating...' : 'Create Proposal'}
-        </button>
+          Create Proposal
+        </Button>
       </div>
     </form>
   );
