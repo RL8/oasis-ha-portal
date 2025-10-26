@@ -12,7 +12,7 @@ export default function VotingPage() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showNameModal, setShowNameModal] = useState(false);
-  const [nameModalAction, setNameModalAction] = useState<'vote' | 'comment' | 'propose'>('vote');
+  const [nameModalAction, setNameModalAction] = useState<'vote' | 'comment' | 'propose' | 'access'>('vote');
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
   
   // Client-side state for demo mode
