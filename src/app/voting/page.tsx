@@ -24,6 +24,14 @@ export default function VotingPage() {
     loadData();
   }, []);
 
+  // Show name modal immediately if no current user
+  useEffect(() => {
+    if (!loading && !currentUser) {
+      setNameModalAction('access');
+      setShowNameModal(true);
+    }
+  }, [loading, currentUser]);
+
   const loadData = async () => {
     try {
       const [proposalsRes, commentsRes] = await Promise.all([
@@ -293,11 +301,15 @@ export default function VotingPage() {
       <NameModal
         isOpen={showNameModal}
         onClose={() => {
-          setShowNameModal(false);
-          setPendingAction(null);
+          // Only allow closing if not required (i.e., user already has access)
+          if (currentUser || nameModalAction !== 'access') {
+            setShowNameModal(false);
+            setPendingAction(null);
+          }
         }}
         onSubmit={handleNameSubmit}
         action={nameModalAction}
+        required={nameModalAction === 'access'}
       />
     </div>
   );

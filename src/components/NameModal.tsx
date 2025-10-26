@@ -6,10 +6,11 @@ interface NameModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (firstName: string, lastName: string) => void;
-  action: 'vote' | 'comment' | 'propose';
+  action: 'vote' | 'comment' | 'propose' | 'access';
+  required?: boolean; // If true, hides the cancel button
 }
 
-export default function NameModal({ isOpen, onClose, onSubmit, action }: NameModalProps) {
+export default function NameModal({ isOpen, onClose, onSubmit, action, required = false }: NameModalProps) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,6 +45,8 @@ export default function NameModal({ isOpen, onClose, onSubmit, action }: NameMod
         return 'add comments';
       case 'propose':
         return 'create proposals';
+      case 'access':
+        return 'access the voting system';
       default:
         return 'participate';
     }
@@ -100,14 +103,16 @@ export default function NameModal({ isOpen, onClose, onSubmit, action }: NameMod
             </p>
           </div>
 
-          <div className="flex justify-end space-x-3 pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 text-gray-600 hover:text-gray-800 transition duration-300"
-            >
-              Cancel
-            </button>
+          <div className={`flex ${required ? 'justify-end' : 'justify-end space-x-3'} pt-4`}>
+            {!required && (
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition duration-300"
+              >
+                Cancel
+              </button>
+            )}
             <button
               type="submit"
               disabled={isSubmitting || !firstName.trim() || !lastName.trim()}
