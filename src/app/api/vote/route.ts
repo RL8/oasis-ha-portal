@@ -85,14 +85,21 @@ export async function POST(request: NextRequest) {
     // Recalculate vote totals
     proposals[proposalId].votes = calculateVoteTotals(proposalId, users);
 
-    // Save data
-    await writeUsersData(users);
-    await writeProposalsData(proposals);
+    // Save data (only in development)
+    try {
+      await writeUsersData(users);
+      await writeProposalsData(proposals);
+    } catch (error) {
+      // In production (Vercel), file writes are not allowed
+      // Return success but don't persist the data
+      console.log('File write not allowed in production environment');
+    }
 
     return NextResponse.json({
       success: true,
       vote: users[userIp].votes[proposalId],
-      totals: proposals[proposalId].votes
+      totals: proposals[proposalId].votes,
+      message: process.env.NODE_ENV === 'production' ? 'Vote recorded (demo mode - not persisted)' : 'Vote recorded successfully'
     });
 
   } catch (error) {

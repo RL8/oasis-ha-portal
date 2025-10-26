@@ -62,13 +62,20 @@ export async function POST(request: NextRequest) {
     comments[commentId] = comment;
     users[userIp].comments.push(commentId);
 
-    // Save data
-    await writeUsersData(users);
-    await writeCommentsData(comments);
+    // Save data (only in development)
+    try {
+      await writeUsersData(users);
+      await writeCommentsData(comments);
+    } catch (error) {
+      // In production (Vercel), file writes are not allowed
+      // Return success but don't persist the data
+      console.log('File write not allowed in production environment');
+    }
 
     return NextResponse.json({
       success: true,
-      comment
+      comment,
+      message: process.env.NODE_ENV === 'production' ? 'Comment posted (demo mode - not persisted)' : 'Comment posted successfully'
     });
 
   } catch (error) {

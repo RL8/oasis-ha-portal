@@ -69,13 +69,20 @@ export async function POST(request: NextRequest) {
     proposals[proposalId] = proposal;
     users[userIp].proposals.push(proposalId);
 
-    // Save data
-    await writeUsersData(users);
-    await writeProposalsData(proposals);
+    // Save data (only in development)
+    try {
+      await writeUsersData(users);
+      await writeProposalsData(proposals);
+    } catch (error) {
+      // In production (Vercel), file writes are not allowed
+      // Return success but don't persist the data
+      console.log('File write not allowed in production environment');
+    }
 
     return NextResponse.json({
       success: true,
-      proposal
+      proposal,
+      message: process.env.NODE_ENV === 'production' ? 'Proposal created (demo mode - not persisted)' : 'Proposal created successfully'
     });
 
   } catch (error) {
@@ -132,11 +139,19 @@ export async function PUT(request: NextRequest) {
     }
 
     proposal.status = status;
-    await writeProposalsData(proposals);
+    
+    // Save data (only in development)
+    try {
+      await writeProposalsData(proposals);
+    } catch (error) {
+      // In production (Vercel), file writes are not allowed
+      console.log('File write not allowed in production environment');
+    }
 
     return NextResponse.json({
       success: true,
-      proposal
+      proposal,
+      message: process.env.NODE_ENV === 'production' ? 'Proposal updated (demo mode - not persisted)' : 'Proposal updated successfully'
     });
 
   } catch (error) {
