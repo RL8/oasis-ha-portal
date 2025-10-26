@@ -63,6 +63,22 @@ export interface CommentsData {
   [commentId: string]: Comment;
 }
 
+// Proposal Request - Plain text submissions from users
+export interface ProposalRequest {
+  id: string;
+  requestText: string;        // Plain text description of what user wants to propose
+  status: 'pending' | 'approved' | 'rejected';
+  createdBy: string;           // User IP
+  createdAt: string;
+  reviewedBy?: string;         // Admin who reviewed it
+  reviewedAt?: string;
+  proposalId?: string;         // If approved, links to the created proposal
+}
+
+export interface ProposalRequestsData {
+  [requestId: string]: ProposalRequest;
+}
+
 // Validation functions
 export const validateVote = (questionId: string, selectedOptions: string[], justification: string): boolean => {
   return questionId.trim().length > 0 && selectedOptions.length > 0 && justification.trim().length > 0;
@@ -120,6 +136,22 @@ export const validateComment = (comment: unknown): comment is Comment => {
          typeof (comment as Record<string, unknown>).timestamp === 'string';
 };
 
+export const validateProposalRequest = (request: unknown): request is ProposalRequest => {
+  return request !== null &&
+         typeof request === 'object' &&
+         request !== null &&
+         'id' in request &&
+         'requestText' in request &&
+         'status' in request &&
+         'createdBy' in request &&
+         'createdAt' in request &&
+         typeof (request as Record<string, unknown>).id === 'string' &&
+         typeof (request as Record<string, unknown>).requestText === 'string' &&
+         ['pending', 'approved', 'rejected'].includes((request as Record<string, unknown>).status as string) &&
+         typeof (request as Record<string, unknown>).createdBy === 'string' &&
+         typeof (request as Record<string, unknown>).createdAt === 'string';
+};
+
 // Type guards
 export const isUser = (obj: unknown): obj is User => {
   return validateUser(obj);
@@ -133,6 +165,10 @@ export const isComment = (obj: unknown): obj is Comment => {
   return validateComment(obj);
 };
 
+export const isProposalRequest = (obj: unknown): obj is ProposalRequest => {
+  return validateProposalRequest(obj);
+};
+
 // Utility functions
 export const generateId = (): string => {
   return `prop${Date.now()}${Math.random().toString(36).substr(2, 5)}`;
@@ -140,6 +176,10 @@ export const generateId = (): string => {
 
 export const generateCommentId = (): string => {
   return `comment${Date.now()}${Math.random().toString(36).substr(2, 5)}`;
+};
+
+export const generateRequestId = (): string => {
+  return `request${Date.now()}${Math.random().toString(36).substr(2, 5)}`;
 };
 
 export const isLockedIn = (lockInDate: string): boolean => {

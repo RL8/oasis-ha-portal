@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { UsersData, ProposalsData, CommentsData } from '../types/voting';
+import { UsersData, ProposalsData, CommentsData, ProposalRequestsData } from '../types/voting';
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data');
 
@@ -38,6 +38,17 @@ export const readCommentsData = async (): Promise<CommentsData> => {
   }
 };
 
+export const readProposalRequestsData = async (): Promise<ProposalRequestsData> => {
+  try {
+    const filePath = path.join(DATA_DIR, 'proposal-requests.json');
+    const data = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading proposal requests data:', error);
+    return {};
+  }
+};
+
 // Safe JSON write operations
 export const writeUsersData = async (data: UsersData): Promise<void> => {
   try {
@@ -65,6 +76,16 @@ export const writeCommentsData = async (data: CommentsData): Promise<void> => {
     await fs.writeFile(filePath, JSON.stringify(data, null, 2));
   } catch (error) {
     console.error('Error writing comments data:', error);
+    throw error;
+  }
+};
+
+export const writeProposalRequestsData = async (data: ProposalRequestsData): Promise<void> => {
+  try {
+    const filePath = path.join(DATA_DIR, 'proposal-requests.json');
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error('Error writing proposal requests data:', error);
     throw error;
   }
 };
