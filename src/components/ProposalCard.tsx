@@ -13,17 +13,28 @@ interface ProposalCardProps {
   onComment: (proposalId: string, text: string) => void;
 }
 
-export default function ProposalCard({ 
-  proposal, 
-  comments, 
-  currentUser, 
+interface VoteDetail {
+  userName: string;
+  userRole: string;
+  selectedOptions: string[];
+  justification: string;
+  timestamp: string;
+}
+
+export default function ProposalCard({
+  proposal,
+  comments,
+  currentUser,
   clientVotes,
-  onVote, 
+  onVote,
   onComment
 }: ProposalCardProps) {
   const [showCommentForm, setShowCommentForm] = useState(false);
   const [newComment, setNewComment] = useState('');
   const [isSubmittingComment, setIsSubmittingComment] = useState(false);
+  const [expandedVotes, setExpandedVotes] = useState<Set<string>>(new Set());
+  const [allVotes, setAllVotes] = useState<Record<string, VoteDetail[]>>({});
+  const [loadingVotes, setLoadingVotes] = useState<Set<string>>(new Set());
 
   const proposalComments = comments.filter(comment => comment.proposalId === proposal.id);
   const isLockedIn = new Date() > new Date(proposal.lockInDate);
@@ -93,9 +104,42 @@ export default function ProposalCard({
 
   const getCurrentVoteForQuestion = (question: Question) => {
     if (!currentUser?.votes) return null;
-    
+
     const voteKey = `${proposal.id}-${question.id}`;
     return clientVotes?.[voteKey] || currentUser.votes[voteKey];
+  };
+
+  const toggleVoteDetails = async (questionId: string) => {
+    const newExpanded = new Set(expandedVotes);
+
+    if (newExpanded.has(questionId)) {
+      newExpanded.delete(questionId);
+      setExpandedVotes(newExpanded);
+    } else {
+      newExpanded.add(questionId);
+      setExpandedVotes(newExpanded);
+
+      // Fetch votes if not already loaded
+      if (!allVotes[questionId]) {
+        const newLoading = new Set(loadingVotes);
+        newLoading.add(questionId);
+        setLoadingVotes(newLoading);
+
+        try {
+          const response = await fetch(`/api/votes?proposalId=${proposal.id}&questionId=${questionId}`);
+          if (response.ok) {
+            const data = await response.json();
+            setAllVotes(prev => ({ ...prev, [questionId]: data.votes }));
+          }
+        } catch (error) {
+          console.error('Error fetching votes:', error);
+        } finally {
+          const newLoading = new Set(loadingVotes);
+          newLoading.delete(questionId);
+          setLoadingVotes(newLoading);
+        }
+      }
+    }
   };
 
   return (
@@ -193,6 +237,54 @@ export default function ProposalCard({
                     <div className="text-xs text-blue-600 mt-1">
                       &ldquo;{currentVote.justification}&rdquo;
                     </div>
+                  </div>
+                )}
+
+                {/* View All Votes Button */}
+                <div className="mt-4">
+                  <button
+                    onClick={() => toggleVoteDetails(question.id)}
+                    className="text-sm text-oasis-green hover:text-green-700 font-medium flex items-center gap-2"
+                  >
+                    {expandedVotes.has(question.id) ? '▼' : '▶'} View All Votes ({allVotes[question.id]?.length || totalVotes})
+                  </button>
+                </div>
+
+                {/* All Votes Display */}
+                {expandedVotes.has(question.id) && (
+                  <div className="mt-4 space-y-3">
+                    {loadingVotes.has(question.id) ? (
+                      <div className="text-center py-4 text-gray-600">Loading votes...</div>
+                    ) : allVotes[question.id]?.length > 0 ? (
+                      allVotes[question.id].map((vote, index) => (
+                        <div key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <span className="font-semibold text-gray-900">{vote.userName}</span>
+                              <span className="text-xs text-gray-500 ml-2">({vote.userRole})</span>
+                            </div>
+                            <span className="text-xs text-gray-500">
+                              {new Date(vote.timestamp).toLocaleDateString()} {new Date(vote.timestamp).toLocaleTimeString()}
+                            </span>
+                          </div>
+                          <div className="mb-2">
+                            <span className="text-sm font-medium text-gray-700">Voted: </span>
+                            <span className="text-sm text-gray-900">
+                              {vote.selectedOptions.map(optionId => {
+                                const option = question.options.find(opt => opt.id === optionId);
+                                return option?.label;
+                              }).filter(Boolean).join(', ')}
+                            </span>
+                          </div>
+                          <div className="text-sm text-gray-700">
+                            <span className="font-medium">Justification: </span>
+                            <span className="italic">&ldquo;{vote.justification}&rdquo;</span>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center py-4 text-gray-600">No votes yet for this question.</div>
+                    )}
                   </div>
                 )}
               </div>

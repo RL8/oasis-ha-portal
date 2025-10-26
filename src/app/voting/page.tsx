@@ -278,21 +278,34 @@ export default function VotingPage() {
 
         {/* Proposals List */}
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">Current Proposals</h2>
-          
+          <h2 className="text-2xl font-bold text-gray-900">Proposals</h2>
+
           {proposals.length === 0 ? (
             <div className="bg-white rounded-xl shadow-lg p-8 text-center">
               <p className="text-gray-600 text-lg">No proposals yet. Be the first to create one!</p>
             </div>
           ) : (
-            <ProposalGroups 
-              proposals={proposals}
-              comments={[...comments, ...clientComments]}
-              currentUser={currentUser}
-              clientVotes={clientVotes}
-              onVote={handleVote}
-              onComment={handleComment}
-            />
+            <div className="space-y-6">
+              {proposals
+                .filter(p => p.status === 'active' || p.status === 'completed')
+                .sort((a, b) => {
+                  // Sort by status (active first) then by creation date (newest first)
+                  if (a.status === 'active' && b.status !== 'active') return -1;
+                  if (a.status !== 'active' && b.status === 'active') return 1;
+                  return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+                })
+                .map((proposal) => (
+                  <ProposalCard
+                    key={proposal.id}
+                    proposal={proposal}
+                    comments={[...comments, ...clientComments]}
+                    currentUser={currentUser}
+                    clientVotes={clientVotes}
+                    onVote={handleVote}
+                    onComment={handleComment}
+                  />
+                ))}
+            </div>
           )}
         </div>
       </main>
@@ -386,119 +399,3 @@ function ProposalCreationForm({ onSubmit }: { onSubmit: (title: string, descript
   );
 }
 
-// Proposal Groups Component
-function ProposalGroups({ 
-  proposals, 
-  comments, 
-  currentUser, 
-  clientVotes,
-  onVote, 
-  onComment 
-}: { 
-  proposals: Proposal[]; 
-  comments: Comment[]; 
-  currentUser: User | null; 
-  clientVotes: Record<string, any>;
-  onVote: (proposalId: string, questionId: string, selectedOptions: string[], justification: string) => void;
-  onComment: (proposalId: string, text: string) => void;
-}) {
-  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set(['active']));
-
-  // Group proposals by category and status
-  const groupedProposals = proposals.reduce((groups, proposal) => {
-    let category = 'other';
-    
-    if (proposal.id.startsWith('admin')) {
-      category = 'administrative';
-    } else if (proposal.id.startsWith('website')) {
-      category = 'website';
-    } else if (proposal.id.startsWith('marketing')) {
-      category = 'marketing';
-    } else if (proposal.id.startsWith('legal')) {
-      category = 'legal';
-    } else if (proposal.id.startsWith('prop')) {
-      category = proposal.status === 'completed' ? 'completed' : 'active';
-    }
-
-    if (!groups[category]) {
-      groups[category] = [];
-    }
-    groups[category].push(proposal);
-    return groups;
-  }, {} as Record<string, Proposal[]>);
-
-  const toggleGroup = (groupName: string) => {
-    const newExpanded = new Set(expandedGroups);
-    if (newExpanded.has(groupName)) {
-      newExpanded.delete(groupName);
-    } else {
-      newExpanded.add(groupName);
-    }
-    setExpandedGroups(newExpanded);
-  };
-
-  const groupConfig = {
-    active: { title: 'Active Proposals', icon: '🟢', color: 'green' },
-    completed: { title: 'Completed Proposals (Voting Ended)', icon: '✅', color: 'gray' },
-    administrative: { title: 'Administrative & Signing', icon: '📋', color: 'blue' },
-    website: { title: 'Website Development', icon: '🌐', color: 'purple' },
-    marketing: { title: 'Marketing & Outreach', icon: '📢', color: 'orange' },
-    legal: { title: 'Legal Counsel Selection', icon: '⚖️', color: 'red' },
-    other: { title: 'Other Proposals', icon: '📄', color: 'gray' }
-  };
-
-  return (
-    <div className="space-y-4">
-      {Object.entries(groupedProposals).map(([groupName, groupProposals]) => {
-        const config = groupConfig[groupName as keyof typeof groupConfig] || groupConfig.other;
-        const isExpanded = expandedGroups.has(groupName);
-        
-        return (
-          <div key={groupName} className="bg-white rounded-xl shadow-lg border border-gray-200">
-            <button
-              onClick={() => toggleGroup(groupName)}
-              className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors rounded-t-xl"
-            >
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">{config.icon}</span>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">{config.title}</h3>
-                  <p className="text-sm text-gray-600">{groupProposals.length} proposal{groupProposals.length !== 1 ? 's' : ''}</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${config.color}-100 text-${config.color}-800`}>
-                  {groupProposals.filter(p => p.status === 'active').length} active
-                </span>
-                <svg
-                  className={`w-5 h-5 text-gray-500 transform transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </button>
-            
-            {isExpanded && (
-              <div className="px-6 pb-6 space-y-4">
-                {groupProposals.map((proposal) => (
-                  <ProposalCard
-                    key={proposal.id}
-                    proposal={proposal}
-                    comments={comments}
-                    currentUser={currentUser}
-                    clientVotes={clientVotes}
-                    onVote={onVote}
-                    onComment={onComment}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
