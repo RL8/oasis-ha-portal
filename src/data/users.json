@@ -7,12 +7,27 @@
     "votes": {
       "prop1": {
         "choice": "yes",
-        "justification": "Good location with infrastructure potential",
-        "timestamp": "2025-01-15T10:30:00Z"
+        "justification": "Good location with infrastructure potential and fair pricing",
+        "timestamp": "2025-10-21T10:30:00Z"
+      },
+      "prop3": {
+        "choice": "no",
+        "justification": "Members should get priority over commercial development",
+        "timestamp": "2025-10-19T14:15:00Z"
+      },
+      "prop4": {
+        "choice": "yes",
+        "justification": "Community gardens promote sustainability and member bonding",
+        "timestamp": "2025-10-23T09:45:00Z"
+      },
+      "prop5": {
+        "choice": "no",
+        "justification": "Too expensive for current budget constraints",
+        "timestamp": "2025-10-16T16:20:00Z"
       }
     },
-    "comments": ["comment1"],
-    "proposals": ["prop1"]
+    "comments": ["comment1", "comment4"],
+    "proposals": ["prop1", "prop4"]
   },
   "192.168.1.2": {
     "name": "Mary Johnson",
@@ -22,12 +37,27 @@
     "votes": {
       "prop1": {
         "choice": "no",
-        "justification": "Too far from Harare, high transport costs",
-        "timestamp": "2025-01-15T11:15:00Z"
+        "justification": "Too far from Harare, high transport costs for members",
+        "timestamp": "2025-10-21T11:15:00Z"
+      },
+      "prop3": {
+        "choice": "no",
+        "justification": "Residential plots should come first to secure member commitments",
+        "timestamp": "2025-10-19T15:30:00Z"
+      },
+      "prop4": {
+        "choice": "yes",
+        "justification": "Legal framework exists for community gardens",
+        "timestamp": "2025-10-23T10:20:00Z"
+      },
+      "prop5": {
+        "choice": "abstain",
+        "justification": "Need more details on management scope and responsibilities",
+        "timestamp": "2025-10-16T17:45:00Z"
       }
     },
-    "comments": ["comment2"],
-    "proposals": []
+    "comments": ["comment2", "comment5"],
+    "proposals": ["prop2", "prop5"]
   },
   "192.168.1.3": {
     "name": "Bob Wilson",
@@ -38,10 +68,85 @@
       "prop1": {
         "choice": "abstain",
         "justification": "Need more financial details before deciding",
-        "timestamp": "2025-01-15T12:00:00Z"
+        "timestamp": "2025-10-21T12:00:00Z"
+      },
+      "prop3": {
+        "choice": "yes",
+        "justification": "Commercial revenue can fund better infrastructure",
+        "timestamp": "2025-10-19T16:00:00Z"
+      },
+      "prop4": {
+        "choice": "no",
+        "justification": "Land should be used for housing, not gardening",
+        "timestamp": "2025-10-23T11:30:00Z"
+      },
+      "prop5": {
+        "choice": "yes",
+        "justification": "Professional management will improve property values",
+        "timestamp": "2025-10-16T18:15:00Z"
       }
     },
     "comments": ["comment3"],
+    "proposals": ["prop3"]
+  },
+  "192.168.1.4": {
+    "name": "Sarah Davis",
+    "role": "Founding Member",
+    "committee": "Ethics",
+    "tags": ["Expert", "Active Contributor"],
+    "votes": {
+      "prop1": {
+        "choice": "yes",
+        "justification": "Excellent opportunity for community development",
+        "timestamp": "2025-10-21T13:45:00Z"
+      },
+      "prop3": {
+        "choice": "abstain",
+        "justification": "Both approaches have merit, need more discussion",
+        "timestamp": "2025-10-19T17:20:00Z"
+      },
+      "prop4": {
+        "choice": "yes",
+        "justification": "Promotes healthy living and community spirit",
+        "timestamp": "2025-10-23T12:15:00Z"
+      },
+      "prop5": {
+        "choice": "no",
+        "justification": "Members can manage collectively without external costs",
+        "timestamp": "2025-10-16T19:30:00Z"
+      }
+    },
+    "comments": [],
+    "proposals": []
+  },
+  "192.168.1.5": {
+    "name": "Frank Miller",
+    "role": "General Member",
+    "committee": "Finance",
+    "tags": ["Active Contributor"],
+    "votes": {
+      "prop1": {
+        "choice": "yes",
+        "justification": "Good investment opportunity with growth potential",
+        "timestamp": "2025-10-21T14:20:00Z"
+      },
+      "prop3": {
+        "choice": "no",
+        "justification": "Focus should be on member satisfaction first",
+        "timestamp": "2025-10-19T18:10:00Z"
+      },
+      "prop4": {
+        "choice": "abstain",
+        "justification": "Need to see detailed cost analysis for garden maintenance",
+        "timestamp": "2025-10-23T13:00:00Z"
+      },
+      "prop5": {
+        "choice": "yes",
+        "justification": "Professional management reduces member workload",
+        "timestamp": "2025-10-16T20:45:00Z"
+      }
+    },
+    "comments": [],
     "proposals": []
   }
 }

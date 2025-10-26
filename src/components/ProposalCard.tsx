@@ -145,6 +145,129 @@ export default function ProposalCard({
               <div className="w-12 text-sm text-gray-600">{abstainPercentage}%</div>
             </div>
           </div>
+
+          {/* Individual Votes with Justifications */}
+          {totalVotes > 0 && (
+            <div className="mt-6">
+              <h5 className="font-semibold text-gray-900 mb-3">Individual Votes & Justifications</h5>
+              <div className="space-y-2 max-h-60 overflow-y-auto">
+                {comments.map((comment) => {
+                  // Find user who made this comment to get their votes
+                  const user = comment.userIp;
+                  const userVote = currentUser?.votes?.[proposal.id];
+                  
+                  // For demo purposes, we'll show sample votes
+                  // In a real app, you'd fetch all users and their votes for this proposal
+                  return null;
+                })}
+                
+                {/* Sample individual votes for demo */}
+                {proposal.id === 'prop1' && (
+                  <>
+                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-green-800">John Smith</span>
+                        <span className="text-xs text-gray-500">Oct 21, 10:30 AM</span>
+                      </div>
+                      <p className="text-sm text-green-700">Good location with infrastructure potential and fair pricing</p>
+                    </div>
+                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-red-800">Mary Johnson</span>
+                        <span className="text-xs text-gray-500">Oct 21, 11:15 AM</span>
+                      </div>
+                      <p className="text-sm text-red-700">Too far from Harare, high transport costs for members</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-gray-800">Bob Wilson</span>
+                        <span className="text-xs text-gray-500">Oct 21, 12:00 PM</span>
+                      </div>
+                      <p className="text-sm text-gray-700">Need more financial details before deciding</p>
+                    </div>
+                  </>
+                )}
+                
+                {proposal.id === 'prop3' && (
+                  <>
+                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-red-800">John Smith</span>
+                        <span className="text-xs text-gray-500">Oct 19, 2:15 PM</span>
+                      </div>
+                      <p className="text-sm text-red-700">Members should get priority over commercial development</p>
+                    </div>
+                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-green-800">Bob Wilson</span>
+                        <span className="text-xs text-gray-500">Oct 19, 4:00 PM</span>
+                      </div>
+                      <p className="text-sm text-green-700">Commercial revenue can fund better infrastructure</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-gray-800">Sarah Davis</span>
+                        <span className="text-xs text-gray-500">Oct 19, 5:20 PM</span>
+                      </div>
+                      <p className="text-sm text-gray-700">Both approaches have merit, need more discussion</p>
+                    </div>
+                  </>
+                )}
+                
+                {proposal.id === 'prop4' && (
+                  <>
+                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-green-800">John Smith</span>
+                        <span className="text-xs text-gray-500">Oct 23, 9:45 AM</span>
+                      </div>
+                      <p className="text-sm text-green-700">Community gardens promote sustainability and member bonding</p>
+                    </div>
+                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-green-800">Mary Johnson</span>
+                        <span className="text-xs text-gray-500">Oct 23, 10:20 AM</span>
+                      </div>
+                      <p className="text-sm text-green-700">Legal framework exists for community gardens</p>
+                    </div>
+                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-red-800">Bob Wilson</span>
+                        <span className="text-xs text-gray-500">Oct 23, 11:30 AM</span>
+                      </div>
+                      <p className="text-sm text-red-700">Land should be used for housing, not gardening</p>
+                    </div>
+                  </>
+                )}
+                
+                {proposal.id === 'prop5' && (
+                  <>
+                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-red-800">John Smith</span>
+                        <span className="text-xs text-gray-500">Oct 16, 4:20 PM</span>
+                      </div>
+                      <p className="text-sm text-red-700">Too expensive for current budget constraints</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-gray-800">Mary Johnson</span>
+                        <span className="text-xs text-gray-500">Oct 16, 5:45 PM</span>
+                      </div>
+                      <p className="text-sm text-gray-700">Need more details on management scope and responsibilities</p>
+                    </div>
+                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-medium text-green-800">Bob Wilson</span>
+                        <span className="text-xs text-gray-500">Oct 16, 6:15 PM</span>
+                      </div>
+                      <p className="text-sm text-green-700">Professional management will improve property values</p>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
