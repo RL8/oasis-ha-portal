@@ -4,27 +4,26 @@ import {
   writeUsersData, 
   readProposalsData, 
   writeProposalsData,
-  getUserIp,
-  calculateVoteTotals
+  getUserIp
 } from '../../../utils/data';
 import { validateVote } from '../../../types/voting';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { proposalId, choice, justification, firstName, lastName } = body;
+    const { proposalId, questionId, selectedOptions, justification, firstName, lastName } = body;
 
     // Validate input
-    if (!proposalId || !choice || !justification || !firstName || !lastName) {
+    if (!proposalId || !questionId || !selectedOptions || !justification || !firstName || !lastName) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    if (!validateVote(choice, justification)) {
+    if (!validateVote(questionId, selectedOptions, justification)) {
       return NextResponse.json(
-        { error: 'Invalid vote choice or missing justification' },
+        { error: 'Invalid vote data' },
         { status: 400 }
       );
     }
@@ -58,6 +57,33 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Find the question and validate options
+    const question = proposal.questions.find(q => q.id === questionId);
+    if (!question) {
+      return NextResponse.json(
+        { error: 'Question not found' },
+        { status: 404 }
+      );
+    }
+
+    // Validate selected options
+    const validOptionIds = question.options.map(opt => opt.id);
+    const invalidOptions = selectedOptions.filter(opt => !validOptionIds.includes(opt));
+    if (invalidOptions.length > 0) {
+      return NextResponse.json(
+        { error: 'Invalid vote options' },
+        { status: 400 }
+      );
+    }
+
+    // For single-choice questions, ensure only one option is selected
+    if (question.type === 'single-choice' && selectedOptions.length !== 1) {
+      return NextResponse.json(
+        { error: 'Single choice questions require exactly one option' },
+        { status: 400 }
+      );
+    }
+
     // Create or update user
     const fullName = `${firstName} ${lastName}`;
     if (!users[userIp]) {
@@ -75,15 +101,14 @@ export async function POST(request: NextRequest) {
       users[userIp].name = fullName;
     }
 
-    // Update vote
-    users[userIp].votes[proposalId] = {
-      choice,
+    // Create a unique vote key combining proposal and question
+    const voteKey = `${proposalId}-${questionId}`;
+    users[userIp].votes[voteKey] = {
+      questionId,
+      selectedOptions,
       justification,
       timestamp: new Date().toISOString()
     };
-
-    // Recalculate vote totals
-    proposals[proposalId].votes = calculateVoteTotals(proposalId, users);
 
     // Save data (only in development)
     try {
@@ -97,8 +122,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      vote: users[userIp].votes[proposalId],
-      totals: proposals[proposalId].votes,
+      vote: users[userIp].votes[voteKey],
       message: process.env.NODE_ENV === 'production' ? 'Vote recorded (demo mode - not persisted)' : 'Vote recorded successfully'
     });
 

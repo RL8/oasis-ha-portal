@@ -65,10 +65,10 @@ export default function VotingPage() {
     }
   };
 
-  const handleVote = async (proposalId: string, choice: 'yes' | 'no' | 'abstain', justification: string) => {
+  const handleVote = async (proposalId: string, questionId: string, selectedOptions: string[], justification: string) => {
     if (!currentUser) {
       setNameModalAction('vote');
-      setPendingAction(() => () => handleVote(proposalId, choice, justification));
+      setPendingAction(() => () => handleVote(proposalId, questionId, selectedOptions, justification));
       setShowNameModal(true);
       return;
     }
@@ -81,7 +81,8 @@ export default function VotingPage() {
         },
         body: JSON.stringify({
           proposalId,
-          choice,
+          questionId,
+          selectedOptions,
           justification,
           firstName: currentUser.name.split(' ')[0],
           lastName: currentUser.name.split(' ')[1] || ''
@@ -92,21 +93,16 @@ export default function VotingPage() {
         const result = await response.json();
         
         // Update client-side state for demo mode
+        const voteKey = `${proposalId}-${questionId}`;
         setClientVotes(prev => ({
           ...prev,
-          [proposalId]: {
-            choice,
+          [voteKey]: {
+            questionId,
+            selectedOptions,
             justification,
             timestamp: new Date().toISOString()
           }
         }));
-        
-        // Update proposals with new vote totals
-        setProposals(prev => prev.map(proposal => 
-          proposal.id === proposalId 
-            ? { ...proposal, votes: result.totals }
-            : proposal
-        ));
         
         // Show success message
         alert(result.message || 'Vote recorded successfully!');
@@ -337,14 +333,14 @@ function ProposalCreationForm({ onSubmit }: { onSubmit: (title: string, descript
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-          Proposal Title (Question)
+          Proposal Title (Topic)
         </label>
         <input
           id="title"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="e.g., Should OHA purchase the Mazowe farm?"
+          placeholder="e.g., Land Acquisition Strategy"
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-oasis-green focus:border-oasis-green"
           required
         />
@@ -358,7 +354,7 @@ function ProposalCreationForm({ onSubmit }: { onSubmit: (title: string, descript
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Provide background information and context for this proposal..."
+          placeholder="Provide background information and context for this topic..."
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-oasis-green focus:border-oasis-green"
           rows={4}
           required
@@ -391,7 +387,7 @@ function ProposalGroups({
   comments: Comment[]; 
   currentUser: User | null; 
   clientVotes: Record<string, any>;
-  onVote: (proposalId: string, choice: 'yes' | 'no' | 'abstain', justification: string) => void;
+  onVote: (proposalId: string, questionId: string, selectedOptions: string[], justification: string) => void;
   onComment: (proposalId: string, text: string) => void;
 }) {
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set(['active']));

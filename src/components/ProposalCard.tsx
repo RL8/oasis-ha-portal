@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Proposal, Comment } from '../types/voting';
+import { Proposal, Comment, Question } from '../types/voting';
 import VoteForm from './VoteForm';
 
 interface ProposalCardProps {
@@ -9,7 +9,7 @@ interface ProposalCardProps {
   comments: Comment[];
   currentUser?: any;
   clientVotes?: Record<string, any>;
-  onVote: (proposalId: string, choice: 'yes' | 'no' | 'abstain', justification: string) => void;
+  onVote: (proposalId: string, questionId: string, selectedOptions: string[], justification: string) => void;
   onComment: (proposalId: string, text: string) => void;
 }
 
@@ -26,7 +26,6 @@ export default function ProposalCard({
   const [isSubmittingComment, setIsSubmittingComment] = useState(false);
 
   const proposalComments = comments.filter(comment => comment.proposalId === proposal.id);
-  const currentVote = clientVotes?.[proposal.id] || currentUser?.votes[proposal.id];
   const isLockedIn = new Date() > new Date(proposal.lockInDate);
   
   const timeUntilLockIn = () => {
@@ -64,10 +63,40 @@ export default function ProposalCard({
     }
   };
 
-  const totalVotes = proposal.votes.yes + proposal.votes.no + proposal.votes.abstain;
-  const yesPercentage = totalVotes > 0 ? Math.round((proposal.votes.yes / totalVotes) * 100) : 0;
-  const noPercentage = totalVotes > 0 ? Math.round((proposal.votes.no / totalVotes) * 100) : 0;
-  const abstainPercentage = totalVotes > 0 ? Math.round((proposal.votes.abstain / totalVotes) * 100) : 0;
+  // Calculate vote totals for each question
+  const getQuestionVoteTotals = (question: Question) => {
+    const totals: Record<string, number> = {};
+    
+    // Initialize all options to 0
+    question.options.forEach(option => {
+      totals[option.id] = 0;
+    });
+    
+    // Count votes from all users
+    if (currentUser) {
+      Object.values(currentUser.votes || {}).forEach((vote: any) => {
+        if (vote.questionId === question.id) {
+          vote.selectedOptions.forEach((optionId: string) => {
+            totals[optionId] = (totals[optionId] || 0) + 1;
+          });
+        }
+      });
+    }
+    
+    return totals;
+  };
+
+  const getTotalVotesForQuestion = (question: Question) => {
+    const totals = getQuestionVoteTotals(question);
+    return Object.values(totals).reduce((sum, count) => sum + count, 0);
+  };
+
+  const getCurrentVoteForQuestion = (question: Question) => {
+    if (!currentUser?.votes) return null;
+    
+    const voteKey = `${proposal.id}-${question.id}`;
+    return clientVotes?.[voteKey] || currentUser.votes[voteKey];
+  };
 
   return (
     <div className={`bg-white rounded-xl shadow-lg border-2 p-6 ${
@@ -100,195 +129,93 @@ export default function ProposalCard({
         <p className="text-gray-700 leading-relaxed">{proposal.description}</p>
       </div>
 
-      {/* Vote Results */}
-      {(proposal.status === 'active' || proposal.status === 'completed') && (
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-2">
-            <h4 className="font-semibold text-gray-900">Current Vote Results</h4>
-            <span className="text-sm text-gray-600">{totalVotes} total votes</span>
+      {/* Questions */}
+      {proposal.questions.map((question) => {
+        const voteTotals = getQuestionVoteTotals(question);
+        const totalVotes = getTotalVotesForQuestion(question);
+        const currentVote = getCurrentVoteForQuestion(question);
+
+        return (
+          <div key={question.id} className="mb-8 border border-gray-200 rounded-lg p-4">
+            {/* Question Header */}
+            <div className="mb-4">
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">{question.title}</h4>
+              <p className="text-gray-600 text-sm">{question.description}</p>
+              <div className="mt-2 text-xs text-gray-500">
+                Type: {question.type === 'single-choice' ? 'Single Choice' : 
+                      question.type === 'multiple-choice' ? 'Multiple Choice' : 'Ranking'} 
+                {question.required && ' • Required'}
+              </div>
+            </div>
+
+            {/* Vote Results */}
+            {(proposal.status === 'active' || proposal.status === 'completed') && (
+              <div className="mb-6">
+                <div className="flex justify-between items-center mb-3">
+                  <h5 className="font-semibold text-gray-900">Vote Results</h5>
+                  <span className="text-sm text-gray-600">{totalVotes} total votes</span>
+                </div>
+                
+                <div className="space-y-3">
+                  {question.options.map((option) => {
+                    const voteCount = voteTotals[option.id] || 0;
+                    const percentage = totalVotes > 0 ? Math.round((voteCount / totalVotes) * 100) : 0;
+                    
+                    return (
+                      <div key={option.id} className="flex items-center space-x-3">
+                        <div className="w-48 text-sm font-medium text-gray-700">
+                          {option.label}
+                        </div>
+                        <div className="flex-1 bg-gray-200 rounded-full h-6">
+                          <div 
+                            className="bg-oasis-green h-6 rounded-full flex items-center justify-end pr-2"
+                            style={{ width: `${percentage}%` }}
+                          >
+                            <span className="text-white text-xs font-medium">{voteCount}</span>
+                          </div>
+                        </div>
+                        <div className="w-12 text-sm text-gray-600">{percentage}%</div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Current Vote Display */}
+                {currentVote && (
+                  <div className="mt-4 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                    <div className="text-sm font-medium text-blue-800 mb-1">Your Vote:</div>
+                    <div className="text-sm text-blue-700">
+                      {currentVote.selectedOptions.map(optionId => {
+                        const option = question.options.find(opt => opt.id === optionId);
+                        return option?.label;
+                      }).join(', ')}
+                    </div>
+                    <div className="text-xs text-blue-600 mt-1">
+                      "{currentVote.justification}"
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Vote Form */}
+            {proposal.status === 'active' && (
+              <div className="mb-6">
+                <VoteForm
+                  proposalId={proposal.id}
+                  question={question}
+                  currentVote={currentVote}
+                  onVote={(selectedOptions, justification) => 
+                    onVote(proposal.id, question.id, selectedOptions, justification)
+                  }
+                  isLockedIn={isLockedIn}
+                  timeUntilLockIn={timeUntilLockIn()}
+                />
+              </div>
+            )}
           </div>
-          
-          <div className="space-y-3">
-            {/* Yes votes */}
-            <div className="flex items-center space-x-3">
-              <div className="w-16 text-sm font-medium text-green-700">Yes</div>
-              <div className="flex-1 bg-gray-200 rounded-full h-6">
-                <div 
-                  className="bg-green-500 h-6 rounded-full flex items-center justify-end pr-2"
-                  style={{ width: `${yesPercentage}%` }}
-                >
-                  <span className="text-white text-xs font-medium">{proposal.votes.yes}</span>
-                </div>
-              </div>
-              <div className="w-12 text-sm text-gray-600">{yesPercentage}%</div>
-            </div>
-
-            {/* No votes */}
-            <div className="flex items-center space-x-3">
-              <div className="w-16 text-sm font-medium text-red-700">No</div>
-              <div className="flex-1 bg-gray-200 rounded-full h-6">
-                <div 
-                  className="bg-red-500 h-6 rounded-full flex items-center justify-end pr-2"
-                  style={{ width: `${noPercentage}%` }}
-                >
-                  <span className="text-white text-xs font-medium">{proposal.votes.no}</span>
-                </div>
-              </div>
-              <div className="w-12 text-sm text-gray-600">{noPercentage}%</div>
-            </div>
-
-            {/* Abstain votes */}
-            <div className="flex items-center space-x-3">
-              <div className="w-16 text-sm font-medium text-gray-700">Abstain</div>
-              <div className="flex-1 bg-gray-200 rounded-full h-6">
-                <div 
-                  className="bg-gray-500 h-6 rounded-full flex items-center justify-end pr-2"
-                  style={{ width: `${abstainPercentage}%` }}
-                >
-                  <span className="text-white text-xs font-medium">{proposal.votes.abstain}</span>
-                </div>
-              </div>
-              <div className="w-12 text-sm text-gray-600">{abstainPercentage}%</div>
-            </div>
-          </div>
-
-          {/* Individual Votes with Justifications */}
-          {totalVotes > 0 && (
-            <div className="mt-6">
-              <h5 className="font-semibold text-gray-900 mb-3">Individual Votes & Justifications</h5>
-              <div className="space-y-2 max-h-60 overflow-y-auto">
-                {comments.map((comment) => {
-                  // Find user who made this comment to get their votes
-                  const user = comment.userIp;
-                  const userVote = currentUser?.votes?.[proposal.id];
-                  
-                  // For demo purposes, we'll show sample votes
-                  // In a real app, you'd fetch all users and their votes for this proposal
-                  return null;
-                })}
-                
-                {/* Sample individual votes for demo */}
-                {proposal.id === 'prop1' && (
-                  <>
-                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-green-800">John Smith</span>
-                        <span className="text-xs text-gray-500">Oct 21, 10:30 AM</span>
-                      </div>
-                      <p className="text-sm text-green-700">Good location with infrastructure potential and fair pricing</p>
-                    </div>
-                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-red-800">Mary Johnson</span>
-                        <span className="text-xs text-gray-500">Oct 21, 11:15 AM</span>
-                      </div>
-                      <p className="text-sm text-red-700">Too far from Harare, high transport costs for members</p>
-                    </div>
-                    <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-gray-800">Bob Wilson</span>
-                        <span className="text-xs text-gray-500">Oct 21, 12:00 PM</span>
-                      </div>
-                      <p className="text-sm text-gray-700">Need more financial details before deciding</p>
-                    </div>
-                  </>
-                )}
-                
-                {proposal.id === 'prop3' && (
-                  <>
-                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-red-800">John Smith</span>
-                        <span className="text-xs text-gray-500">Oct 19, 2:15 PM</span>
-                      </div>
-                      <p className="text-sm text-red-700">Members should get priority over commercial development</p>
-                    </div>
-                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-green-800">Bob Wilson</span>
-                        <span className="text-xs text-gray-500">Oct 19, 4:00 PM</span>
-                      </div>
-                      <p className="text-sm text-green-700">Commercial revenue can fund better infrastructure</p>
-                    </div>
-                    <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-gray-800">Sarah Davis</span>
-                        <span className="text-xs text-gray-500">Oct 19, 5:20 PM</span>
-                      </div>
-                      <p className="text-sm text-gray-700">Both approaches have merit, need more discussion</p>
-                    </div>
-                  </>
-                )}
-                
-                {proposal.id === 'prop4' && (
-                  <>
-                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-green-800">John Smith</span>
-                        <span className="text-xs text-gray-500">Oct 23, 9:45 AM</span>
-                      </div>
-                      <p className="text-sm text-green-700">Community gardens promote sustainability and member bonding</p>
-                    </div>
-                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-green-800">Mary Johnson</span>
-                        <span className="text-xs text-gray-500">Oct 23, 10:20 AM</span>
-                      </div>
-                      <p className="text-sm text-green-700">Legal framework exists for community gardens</p>
-                    </div>
-                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-red-800">Bob Wilson</span>
-                        <span className="text-xs text-gray-500">Oct 23, 11:30 AM</span>
-                      </div>
-                      <p className="text-sm text-red-700">Land should be used for housing, not gardening</p>
-                    </div>
-                  </>
-                )}
-                
-                {proposal.id === 'prop5' && (
-                  <>
-                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-red-800">John Smith</span>
-                        <span className="text-xs text-gray-500">Oct 16, 4:20 PM</span>
-                      </div>
-                      <p className="text-sm text-red-700">Too expensive for current budget constraints</p>
-                    </div>
-                    <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-gray-800">Mary Johnson</span>
-                        <span className="text-xs text-gray-500">Oct 16, 5:45 PM</span>
-                      </div>
-                      <p className="text-sm text-gray-700">Need more details on management scope and responsibilities</p>
-                    </div>
-                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="font-medium text-green-800">Bob Wilson</span>
-                        <span className="text-xs text-gray-500">Oct 16, 6:15 PM</span>
-                      </div>
-                      <p className="text-sm text-green-700">Professional management will improve property values</p>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Vote Form */}
-      {proposal.status === 'active' && (
-        <div className="mb-6">
-          <VoteForm
-            proposalId={proposal.id}
-            currentVote={currentVote}
-            onVote={onVote}
-            isLockedIn={isLockedIn}
-            timeUntilLockIn={timeUntilLockIn()}
-          />
-        </div>
-      )}
+        );
+      })}
 
       {/* Comments Section */}
       <div className="border-t pt-6">

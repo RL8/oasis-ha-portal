@@ -91,16 +91,3 @@ export const getUserIp = (req: Request): string => {
   return '127.0.0.1';
 };
 
-// Calculate vote totals for a proposal
-export const calculateVoteTotals = (proposalId: string, users: UsersData) => {
-  const totals = { yes: 0, no: 0, abstain: 0 };
-  
-  Object.values(users).forEach(user => {
-    const vote = user.votes[proposalId];
-    if (vote) {
-      totals[vote.choice]++;
-    }
-  });
-  
-  return totals;
-};

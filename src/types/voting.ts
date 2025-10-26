@@ -1,7 +1,8 @@
 // TypeScript interfaces for the voting system
 
 export interface Vote {
-  choice: 'yes' | 'no' | 'abstain';
+  questionId: string;
+  selectedOptions: string[]; // Array of option IDs
   justification: string;
   timestamp: string;
 }
@@ -11,9 +12,24 @@ export interface User {
   role: string;
   committee: string;
   tags: string[];
-  votes: Record<string, Vote>;
+  votes: Record<string, Vote>; // proposalId -> Vote
   comments: string[];
   proposals: string[];
+}
+
+export interface VoteOption {
+  id: string;
+  label: string;
+  description?: string;
+}
+
+export interface Question {
+  id: string;
+  title: string;
+  description: string;
+  type: 'single-choice' | 'multiple-choice' | 'ranking';
+  options: VoteOption[];
+  required: boolean;
 }
 
 export interface Proposal {
@@ -24,11 +40,7 @@ export interface Proposal {
   createdBy: string;
   createdAt: string;
   lockInDate: string;
-  votes: {
-    yes: number;
-    no: number;
-    abstain: number;
-  };
+  questions: Question[];
 }
 
 export interface Comment {
@@ -52,8 +64,8 @@ export interface CommentsData {
 }
 
 // Validation functions
-export const validateVote = (choice: string, justification: string): boolean => {
-  return ['yes', 'no', 'abstain'].includes(choice) && justification.trim().length > 0;
+export const validateVote = (questionId: string, selectedOptions: string[], justification: string): boolean => {
+  return questionId.trim().length > 0 && selectedOptions.length > 0 && justification.trim().length > 0;
 };
 
 export const validateProposal = (proposal: unknown): proposal is Proposal => {

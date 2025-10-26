@@ -59,11 +59,7 @@ export async function POST(request: NextRequest) {
       createdBy: userIp,
       createdAt: new Date().toISOString(),
       lockInDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days from now
-      votes: {
-        yes: 0,
-        no: 0,
-        abstain: 0
-      }
+      questions: [] // Empty questions array - admin will add questions when activating
     };
 
     proposals[proposalId] = proposal;
@@ -121,7 +117,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    if (!['draft', 'active'].includes(status)) {
+    if (!['draft', 'active', 'completed'].includes(status)) {
       return NextResponse.json(
         { error: 'Invalid status' },
         { status: 400 }

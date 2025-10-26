@@ -1,34 +1,47 @@
 'use client';
 
 import { useState } from 'react';
-import { Vote } from '../types/voting';
+import { Vote, Question } from '../types/voting';
 
 interface VoteFormProps {
   proposalId: string;
+  question: Question;
   currentVote?: Vote;
-  onVote: (proposalId: string, choice: 'yes' | 'no' | 'abstain', justification: string) => void;
+  onVote: (selectedOptions: string[], justification: string) => void;
   isLockedIn: boolean;
   timeUntilLockIn: string;
 }
 
-export default function VoteForm({ proposalId, currentVote, onVote, isLockedIn, timeUntilLockIn }: VoteFormProps) {
-  const [selectedChoice, setSelectedChoice] = useState<'yes' | 'no' | 'abstain' | null>(
-    currentVote?.choice || null
+export default function VoteForm({ proposalId, question, currentVote, onVote, isLockedIn, timeUntilLockIn }: VoteFormProps) {
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(
+    currentVote?.selectedOptions || []
   );
   const [justification, setJustification] = useState(currentVote?.justification || '');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleOptionChange = (optionId: string) => {
+    if (question.type === 'single-choice') {
+      setSelectedOptions([optionId]);
+    } else if (question.type === 'multiple-choice') {
+      setSelectedOptions(prev => 
+        prev.includes(optionId) 
+          ? prev.filter(id => id !== optionId)
+          : [...prev, optionId]
+      );
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!selectedChoice || !justification.trim()) {
-      alert('Please select a vote and provide justification');
+    if (selectedOptions.length === 0 || !justification.trim()) {
+      alert('Please select at least one option and provide justification');
       return;
     }
 
     setIsSubmitting(true);
     try {
-      await onVote(proposalId, selectedChoice, justification.trim());
+      await onVote(selectedOptions, justification.trim());
     } catch (error) {
       console.error('Error submitting vote:', error);
       alert('Error submitting vote. Please try again.');
@@ -61,22 +74,27 @@ export default function VoteForm({ proposalId, currentVote, onVote, isLockedIn, 
         <label className="block text-sm font-medium text-gray-700">
           Your Vote
         </label>
-        <div className="space-y-2">
-          {(['yes', 'no', 'abstain'] as const).map((choice) => (
-            <label key={choice} className="flex items-center space-x-3 cursor-pointer">
+        <div className="space-y-3">
+          {question.options.map((option) => (
+            <label key={option.id} className="flex items-start space-x-3 cursor-pointer">
               <input
-                type="radio"
-                name="vote"
-                value={choice}
-                checked={selectedChoice === choice}
-                onChange={() => setSelectedChoice(choice)}
-                className="w-4 h-4 text-oasis-green border-gray-300 focus:ring-oasis-green"
+                type={question.type === 'single-choice' ? 'radio' : 'checkbox'}
+                name={question.type === 'single-choice' ? 'vote' : undefined}
+                value={option.id}
+                checked={selectedOptions.includes(option.id)}
+                onChange={() => handleOptionChange(option.id)}
+                className={`mt-1 ${question.type === 'single-choice' ? 'w-4 h-4' : 'w-4 h-4'} text-oasis-green border-gray-300 focus:ring-oasis-green`}
               />
-              <span className="text-sm font-medium capitalize">
-                {choice === 'yes' && 'Yes'}
-                {choice === 'no' && 'No'}
-                {choice === 'abstain' && 'Abstain'}
-              </span>
+              <div className="flex-1">
+                <div className="text-sm font-medium text-gray-900">
+                  {option.label}
+                </div>
+                {option.description && (
+                  <div className="text-xs text-gray-600 mt-1">
+                    {option.description}
+                  </div>
+                )}
+              </div>
             </label>
           ))}
         </div>
@@ -100,12 +118,17 @@ export default function VoteForm({ proposalId, currentVote, onVote, isLockedIn, 
       <div className="flex justify-between items-center">
         {currentVote && (
           <p className="text-sm text-gray-600">
-            Current vote: <span className="font-medium capitalize">{currentVote.choice}</span>
+            Current vote: <span className="font-medium">
+              {currentVote.selectedOptions.map(optionId => {
+                const option = question.options.find(opt => opt.id === optionId);
+                return option?.label;
+              }).join(', ')}
+            </span>
           </p>
         )}
         <button
           type="submit"
-          disabled={isSubmitting || !selectedChoice || !justification.trim()}
+          disabled={isSubmitting || selectedOptions.length === 0 || !justification.trim()}
           className="px-4 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition duration-300"
         >
           {isSubmitting ? 'Submitting...' : currentVote ? 'Update Vote' : 'Cast Vote'}
