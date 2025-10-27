@@ -216,7 +216,7 @@ export default function Home() {
           <div className="mt-12 text-center max-w-4xl mx-auto bg-green-50 p-8 rounded-xl border-2 border-green-200">
             <h4 className="text-2xl font-bold text-oasis-green mb-3">Our Solution: Community-Led Development</h4>
             <p className="text-lg text-gray-700">
-              As Zimbabwean professionals in the diaspora, we're working together through <strong>Self-Reliance</strong> and <strong>Community-Led Development</strong> to create and maintain high-standard services that are transparent, professional, and reliable for when we return home.
+              As Zimbabwean professionals in the diaspora, we&apos;re working together through <strong>Self-Reliance</strong> and <strong>Community-Led Development</strong> to create and maintain high-standard services that are transparent, professional, and reliable for when we return home.
             </p>
           </div>
         </div>
