@@ -5,6 +5,65 @@ import Link from 'next/link';
 
 export default function Home() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    phoneNumber: '',
+    email: '',
+    additionalInfo: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/membership-application', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: data.message || 'Thank you for your application! We will be in touch soon.'
+        });
+        // Reset form
+        setFormData({
+          name: '',
+          phoneNumber: '',
+          email: '',
+          additionalInfo: ''
+        });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Something went wrong. Please try again.'
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Network error. Please check your connection and try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   return (
     <main className="min-h-screen bg-white">
@@ -22,6 +81,7 @@ export default function Home() {
             <a href="#about" className="hover:text-oasis-green transition duration-300">About</a>
             <a href="#benefits" className="hover:text-oasis-green transition duration-300">Benefits</a>
             <a href="#amenities" className="hover:text-oasis-green transition duration-300">Amenities</a>
+            <a href="#apply" className="hover:text-oasis-green transition duration-300">Apply</a>
             <a href="#contact" className="hover:text-oasis-green transition duration-300">Contact</a>
             <Link
               href="/voting"
@@ -65,6 +125,13 @@ export default function Home() {
               onClick={() => setShowMobileMenu(false)}
             >
               Amenities
+            </a>
+            <a
+              href="#apply"
+              className="block py-2 text-gray-700 hover:text-oasis-green transition duration-300 font-medium"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              Apply
             </a>
             <a
               href="#contact"
@@ -491,28 +558,131 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-16 sm:py-20 bg-gradient-to-br from-oasis-green to-green-700 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h3 className="text-3xl sm:text-4xl font-bold mb-6">
-            Ready to Join Our Community?
-          </h3>
-          <p className="text-xl mb-8 text-green-100">
-            Access the member portal to view proposals, participate in voting, and connect with fellow members.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/voting"
-              className="inline-block px-8 py-4 bg-white text-oasis-green font-bold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:shadow-xl"
-            >
-              Access Member Portal →
-            </Link>
-            <a
-              href="#contact"
-              className="inline-block px-8 py-4 bg-green-800 text-white font-bold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:bg-green-900"
-            >
-              Contact Us
-            </a>
+      {/* Membership Application Form */}
+      <section id="apply" className="py-16 sm:py-20 bg-gradient-to-br from-oasis-green to-green-700">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Apply for Membership
+            </h3>
+            <p className="text-xl text-green-100">
+              Take the first step towards joining our community. Fill out the form below and we&apos;ll be in touch soon.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-2xl p-8 sm:p-12">
+            {submitStatus && (
+              <div className={`mb-6 p-4 rounded-lg ${
+                submitStatus.type === 'success'
+                  ? 'bg-green-50 border-2 border-green-500 text-green-800'
+                  : 'bg-red-50 border-2 border-red-500 text-red-800'
+              }`}>
+                <div className="flex items-start">
+                  <span className="text-2xl mr-3">
+                    {submitStatus.type === 'success' ? '✓' : '⚠'}
+                  </span>
+                  <div>
+                    <p className="font-semibold">
+                      {submitStatus.type === 'success' ? 'Success!' : 'Error'}
+                    </p>
+                    <p className="text-sm mt-1">{submitStatus.message}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Full Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-oasis-green focus:ring-2 focus:ring-green-200 transition outline-none"
+                  placeholder="Enter your full name"
+                />
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="phoneNumber" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Phone Number <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    required
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-oasis-green focus:ring-2 focus:ring-green-200 transition outline-none"
+                    placeholder="+263 ... or local format"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-oasis-green focus:ring-2 focus:ring-green-200 transition outline-none"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="additionalInfo" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Additional Information (Optional)
+                </label>
+                <textarea
+                  id="additionalInfo"
+                  name="additionalInfo"
+                  rows={4}
+                  value={formData.additionalInfo}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-oasis-green focus:ring-2 focus:ring-green-200 transition outline-none resize-none"
+                  placeholder="Tell us why you're interested in joining, your background, or any questions you have..."
+                />
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="flex-1 px-8 py-4 bg-oasis-green text-white font-bold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                </button>
+                <Link
+                  href="/voting"
+                  className="flex-1 text-center px-8 py-4 bg-gray-100 text-gray-700 font-bold rounded-xl shadow transition duration-300 hover:bg-gray-200"
+                >
+                  Already a Member? →
+                </Link>
+              </div>
+
+              <p className="text-sm text-gray-600 text-center mt-4">
+                By submitting this form, you agree to be contacted by Oasis Housing Association regarding membership opportunities.
+              </p>
+            </form>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-white text-sm">
+              Have questions? <a href="#contact" className="underline hover:text-green-200 transition">Contact us</a> or access the <Link href="/voting" className="underline hover:text-green-200 transition">Member Portal</Link>
+            </p>
           </div>
         </div>
       </section>
