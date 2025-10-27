@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { 
-  readUsersData, 
-  writeUsersData, 
-  readProposalsData, 
+import {
+  readUsersData,
+  writeUsersData,
+  readProposalsData,
   writeProposalsData,
   readCommentsData
-} from '../../../utils/data';
+} from '../../../utils/redis';
 
 export async function GET() {
   try {

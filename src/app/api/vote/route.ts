@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { 
-  readUsersData, 
-  writeUsersData, 
-  readProposalsData, 
+import {
+  readUsersData,
+  writeUsersData,
+  readProposalsData,
   writeProposalsData,
   getUserIp
-} from '../../../utils/data';
+} from '../../../utils/redis';
 import { validateVote } from '../../../types/voting';
 
 export async function POST(request: NextRequest) {
@@ -110,20 +110,14 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString()
     };
 
-    // Save data (only in development)
-    try {
-      await writeUsersData(users);
-      await writeProposalsData(proposals);
-    } catch (error) {
-      // In production (Vercel), file writes are not allowed
-      // Return success but don't persist the data
-      console.log('File write not allowed in production environment');
-    }
+    // Save data to Redis
+    await writeUsersData(users);
+    await writeProposalsData(proposals);
 
     return NextResponse.json({
       success: true,
       vote: users[userIp].votes[voteKey],
-      message: process.env.NODE_ENV === 'production' ? 'Vote recorded (demo mode - not persisted)' : 'Vote recorded successfully'
+      message: 'Vote recorded successfully'
     });
 
   } catch (error) {

@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { 
-  readUsersData, 
-  writeUsersData, 
-  readCommentsData, 
+import {
+  readUsersData,
+  writeUsersData,
+  readCommentsData,
   writeCommentsData,
   getUserIp
-} from '../../../utils/data';
+} from '../../../utils/redis';
 import { generateCommentId } from '../../../types/voting';
 
 export async function POST(request: NextRequest) {
@@ -62,20 +62,14 @@ export async function POST(request: NextRequest) {
     comments[commentId] = comment;
     users[userIp].comments.push(commentId);
 
-    // Save data (only in development)
-    try {
-      await writeUsersData(users);
-      await writeCommentsData(comments);
-    } catch (error) {
-      // In production (Vercel), file writes are not allowed
-      // Return success but don't persist the data
-      console.log('File write not allowed in production environment');
-    }
+    // Save data to Redis
+    await writeUsersData(users);
+    await writeCommentsData(comments);
 
     return NextResponse.json({
       success: true,
       comment,
-      message: process.env.NODE_ENV === 'production' ? 'Comment posted (demo mode - not persisted)' : 'Comment posted successfully'
+      message: 'Comment posted successfully'
     });
 
   } catch (error) {

@@ -5,7 +5,7 @@ import {
   readProposalRequestsData,
   writeProposalRequestsData,
   getUserIp
-} from '../../../utils/data';
+} from '../../../utils/redis';
 import { generateRequestId } from '../../../types/voting';
 
 export async function POST(request: NextRequest) {
@@ -61,22 +61,14 @@ export async function POST(request: NextRequest) {
 
     proposalRequests[requestId] = proposalRequest;
 
-    // Save data (only in development)
-    try {
-      await writeUsersData(users);
-      await writeProposalRequestsData(proposalRequests);
-    } catch (error) {
-      // In production (Vercel), file writes are not allowed
-      // Return success but don't persist the data
-      console.log('File write not allowed in production environment');
-    }
+    // Save data to Redis
+    await writeUsersData(users);
+    await writeProposalRequestsData(proposalRequests);
 
     return NextResponse.json({
       success: true,
       proposalRequest,
-      message: process.env.NODE_ENV === 'production'
-        ? 'Proposal request submitted (demo mode - not persisted)'
-        : 'Proposal request submitted successfully. An admin will review it shortly.'
+      message: 'Proposal request submitted successfully. An admin will review it shortly.'
     });
 
   } catch (error) {

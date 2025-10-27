@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { 
-  readUsersData, 
-  writeUsersData, 
-  readProposalsData, 
+import {
+  readUsersData,
+  writeUsersData,
+  readProposalsData,
   writeProposalsData,
   getUserIp
-} from '../../../utils/data';
+} from '../../../utils/redis';
 import { generateId } from '../../../types/voting';
 
 export async function POST(request: NextRequest) {
@@ -65,20 +65,14 @@ export async function POST(request: NextRequest) {
     proposals[proposalId] = proposal;
     users[userIp].proposals.push(proposalId);
 
-    // Save data (only in development)
-    try {
-      await writeUsersData(users);
-      await writeProposalsData(proposals);
-    } catch (error) {
-      // In production (Vercel), file writes are not allowed
-      // Return success but don't persist the data
-      console.log('File write not allowed in production environment');
-    }
+    // Save data to Redis
+    await writeUsersData(users);
+    await writeProposalsData(proposals);
 
     return NextResponse.json({
       success: true,
       proposal,
-      message: process.env.NODE_ENV === 'production' ? 'Proposal created (demo mode - not persisted)' : 'Proposal created successfully'
+      message: 'Proposal created successfully'
     });
 
   } catch (error) {
@@ -135,19 +129,14 @@ export async function PUT(request: NextRequest) {
     }
 
     proposal.status = status;
-    
-    // Save data (only in development)
-    try {
-      await writeProposalsData(proposals);
-    } catch (error) {
-      // In production (Vercel), file writes are not allowed
-      console.log('File write not allowed in production environment');
-    }
+
+    // Save data to Redis
+    await writeProposalsData(proposals);
 
     return NextResponse.json({
       success: true,
       proposal,
-      message: process.env.NODE_ENV === 'production' ? 'Proposal updated (demo mode - not persisted)' : 'Proposal updated successfully'
+      message: 'Proposal updated successfully'
     });
 
   } catch (error) {
