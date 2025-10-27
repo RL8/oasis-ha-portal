@@ -84,10 +84,10 @@ export default function Home() {
             <a href="#apply" className="hover:text-oasis-green transition duration-300">Apply</a>
             <a href="#contact" className="hover:text-oasis-green transition duration-300">Contact</a>
             <Link
-              href="/voting"
+              href="/portal"
               className="px-6 py-2.5 bg-oasis-green text-white rounded-lg shadow-md hover:bg-green-700 transition duration-300 font-semibold"
             >
-              Member Portal →
+              Members Portal →
             </Link>
           </nav>
           <button
@@ -141,11 +141,11 @@ export default function Home() {
               Contact
             </a>
             <Link
-              href="/voting"
+              href="/portal"
               className="block py-3 px-4 bg-oasis-green text-white rounded-lg hover:bg-green-700 transition duration-300 font-semibold text-center"
               onClick={() => setShowMobileMenu(false)}
             >
-              Member Portal →
+              Members Portal →
             </Link>
           </div>
         </div>
@@ -173,10 +173,10 @@ export default function Home() {
                 Learn More
               </a>
               <Link
-                href="/voting"
+                href="/portal"
                 className="inline-block px-8 py-4 bg-green-600 text-white font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:bg-green-700 hover:shadow-xl"
               >
-                Access Portal →
+                Members Portal →
               </Link>
             </div>
           </div>
@@ -666,7 +666,7 @@ export default function Home() {
                   {isSubmitting ? 'Submitting...' : 'Submit Application'}
                 </button>
                 <Link
-                  href="/voting"
+                  href="/portal"
                   className="flex-1 text-center px-8 py-4 bg-gray-100 text-gray-700 font-bold rounded-xl shadow transition duration-300 hover:bg-gray-200"
                 >
                   Already a Member? →
@@ -681,7 +681,7 @@ export default function Home() {
 
           <div className="mt-8 text-center">
             <p className="text-white text-sm">
-              Have questions? <a href="#contact" className="underline hover:text-green-200 transition">Contact us</a> or access the <Link href="/voting" className="underline hover:text-green-200 transition">Member Portal</Link>
+              Have questions? <a href="#contact" className="underline hover:text-green-200 transition">Contact us</a> or access the <Link href="/portal" className="underline hover:text-green-200 transition">Members Portal</Link>
             </p>
           </div>
         </div>
@@ -709,7 +709,7 @@ export default function Home() {
                 <li><a href="#about" className="hover:text-white transition">About Us</a></li>
                 <li><a href="#benefits" className="hover:text-white transition">Benefits</a></li>
                 <li><a href="#amenities" className="hover:text-white transition">Amenities</a></li>
-                <li><Link href="/voting" className="hover:text-white transition">Member Portal</Link></li>
+                <li><Link href="/portal" className="hover:text-white transition">Members Portal</Link></li>
               </ul>
             </div>
 
