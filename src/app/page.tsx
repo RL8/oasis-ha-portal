@@ -1,65 +1,40 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
-  const [showBanner, setShowBanner] = useState(true);
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   return (
-    <main>
-      {/* Dismissable Banner */}
-      {showBanner && (
-        <div className="bg-yellow-100 border-b border-yellow-200 px-4 py-3 relative">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <p className="text-sm text-yellow-800 font-medium">
-               📋 Draft webportal for OHA based on meeting notes of 21 Sep &apos;25
-            </p>
-            <button
-              onClick={() => setShowBanner(false)}
-              className="text-yellow-600 hover:text-yellow-800 ml-4"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
-
+    <main className="min-h-screen bg-white">
       {/* Header & Navigation */}
-      <header className="shadow-lg sticky top-0 z-50 bg-white">
+      <header className="shadow-md sticky top-0 z-50 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-oasis-green flex items-center">
             <div className="w-12 h-12 bg-oasis-green rounded-xl flex items-center justify-center mr-3 shadow-lg border-2 border-green-600">
               <span className="text-white text-2xl font-black">O</span>
             </div>
-            Oasis HA - Draft Web Portal [WIP]
+            <span className="hidden sm:inline">Oasis Housing Association</span>
+            <span className="sm:hidden">Oasis HA</span>
           </h1>
-          <nav className="hidden md:flex space-x-6 font-medium text-sm">
-            <a href="#vision" className="hover:text-oasis-green transition duration-300">Our Vision</a>
-            <a href="#transparency" className="hover:text-oasis-green transition duration-300">Finance</a>
-            <a href="#leadership" className="hover:text-oasis-green transition duration-300">Leadership</a>
-            <a href="#timeline" className="hover:text-oasis-green transition duration-300">Timeline</a>
-            <a 
+          <nav className="hidden md:flex space-x-6 font-medium text-sm items-center">
+            <a href="#about" className="hover:text-oasis-green transition duration-300">About</a>
+            <a href="#benefits" className="hover:text-oasis-green transition duration-300">Benefits</a>
+            <a href="#amenities" className="hover:text-oasis-green transition duration-300">Amenities</a>
+            <a href="#contact" className="hover:text-oasis-green transition duration-300">Contact</a>
+            <Link
               href="/voting"
-              className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition duration-300 font-semibold"
+              className="px-6 py-2.5 bg-oasis-green text-white rounded-lg shadow-md hover:bg-green-700 transition duration-300 font-semibold"
             >
-              🗳️ Voting System
-            </a>
-            <button 
-              onClick={() => setShowLoginPopup(true)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 font-semibold"
-            >
-              Member Login
-            </button>
+              Member Portal →
+            </Link>
           </nav>
-          <button 
+          <button
             onClick={() => setShowMobileMenu(!showMobileMenu)}
             className="md:hidden text-gray-700 hover:text-oasis-green transition-colors duration-200"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
           </button>
@@ -69,577 +44,526 @@ export default function Home() {
       {/* Mobile Menu */}
       {showMobileMenu && (
         <div className="md:hidden bg-white border-b border-gray-200 shadow-lg">
-          <div className="px-4 py-4 space-y-4">
-            <a 
-              href="#vision" 
-              className="block py-2 text-gray-700 hover:text-oasis-green transition duration-300 font-medium"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              Our Vision
-            </a>
-            <a 
-              href="#transparency" 
-              className="block py-2 text-gray-700 hover:text-oasis-green transition duration-300 font-medium"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              Finance
-            </a>
-            <a 
-              href="#leadership" 
-              className="block py-2 text-gray-700 hover:text-oasis-green transition duration-300 font-medium"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              Leadership
-          </a>
+          <div className="px-4 py-4 space-y-3">
             <a
-              href="#timeline" 
+              href="#about"
               className="block py-2 text-gray-700 hover:text-oasis-green transition duration-300 font-medium"
               onClick={() => setShowMobileMenu(false)}
             >
-              Timeline
+              About
             </a>
             <a
-              href="/voting" 
-              className="block py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300 font-semibold"
+              href="#benefits"
+              className="block py-2 text-gray-700 hover:text-oasis-green transition duration-300 font-medium"
               onClick={() => setShowMobileMenu(false)}
             >
-              🗳️ Voting System
+              Benefits
             </a>
-            <button 
-              onClick={() => {
-                setShowLoginPopup(true);
-                setShowMobileMenu(false);
-              }}
-              className="w-full text-left py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 font-semibold"
+            <a
+              href="#amenities"
+              className="block py-2 text-gray-700 hover:text-oasis-green transition duration-300 font-medium"
+              onClick={() => setShowMobileMenu(false)}
             >
-              Member Login
-            </button>
+              Amenities
+            </a>
+            <a
+              href="#contact"
+              className="block py-2 text-gray-700 hover:text-oasis-green transition duration-300 font-medium"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              Contact
+            </a>
+            <Link
+              href="/voting"
+              className="block py-3 px-4 bg-oasis-green text-white rounded-lg hover:bg-green-700 transition duration-300 font-semibold text-center"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              Member Portal →
+            </Link>
           </div>
         </div>
       )}
 
       {/* Hero Section */}
-      <section className="bg-oasis-blue text-white pt-24 pb-20 sm:pt-32 sm:pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-           <h2 className="text-4xl sm:text-6xl font-extrabold mb-4 leading-tight">
-             Building the Future: <br className="sm:hidden" /> A Diaspora Lifestyle Community
-           </h2>
-           <p className="text-xl sm:text-2xl font-light max-w-3xl mx-auto mb-6">
-             The Oasis Housing Association is dedicated to acquiring affordable, high-quality land to develop a legally secure, integrated community with residential, commercial, and agricultural facilities in Zimbabwe.
-           </p>
-           <p className="text-lg text-blue-100 max-w-2xl mx-auto mb-8">
-             <strong>Together, we achieve more.</strong> By combining our resources, skills, and collective vision, we can secure land and build communities that would be impossible to create individually.
-           </p>
-          <div className="space-x-4">
-            <a href="#commitment" className="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-105">
-              Secure Your Spot
-          </a>
-        </div>
-        </div>
-      </section>
-
-      {/* Our Vision & Strategy */}
-      <section id="vision" className="py-16 sm:py-24 bg-white">
+      <section className="bg-gradient-to-br from-oasis-blue to-blue-700 text-white pt-20 pb-24 sm:pt-28 sm:pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <h3 className="text-3xl sm:text-4xl font-bold text-center mb-6 text-gray-900">
-             Our Secure Path Forward
-           </h3>
-           <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
-             <strong>Strength in numbers:</strong> Our collective approach enables us to negotiate better land prices, access professional services, and create economies of scale that benefit every member.
-           </p>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Vision Card */}
-            <div className="bg-gray-50 p-6 rounded-xl shadow-lg border-t-4 border-oasis-green transition duration-500 hover:shadow-2xl">
-              <div className="text-4xl text-oasis-green mb-4">🏡</div>
-              <h4 className="text-xl font-semibold mb-3">Community Vision</h4>
-              <p className="text-gray-600">We aim to create an integrated community with <strong>residential, commercial, and small-scale farming</strong> zones. This includes planned space for schools, hospitals, and business to support employment and high standards of living.</p>
-            </div>
-
-            {/* Strategy Card 1: Exclusion of Harare */}
-            <div className="bg-gray-50 p-6 rounded-xl shadow-lg border-t-4 border-red-500 transition duration-500 hover:shadow-2xl">
-              <div className="text-4xl text-red-500 mb-4">🚫</div>
-              <h4 className="text-xl font-semibold mb-3">Strategic Land Shift</h4>
-              <p className="text-gray-600">Based on financial capacity surveys, the plan to acquire land in <strong>Harare Province has been ruled out</strong>. This decision avoids high costs, congestion, and complex legal dramas associated with urban land.</p>
-            </div>
-
-            {/* Strategy Card 2: New Location Focus */}
-            <div className="bg-gray-50 p-6 rounded-xl shadow-lg border-t-4 border-oasis-green transition duration-500 hover:shadow-2xl">
-              <div className="text-4xl text-oasis-green mb-4">📍</div>
-              <h4 className="text-xl font-semibold mb-3">New Acquisition Focus</h4>
-              <p className="text-gray-600">The current strategy targets acquiring a <strong>privately owned farm</strong> located within a <strong>one-hour radius of Harare</strong>. This strategy ensures affordability, large plot sizes (minimum 1,000 sqm), and clean title deeds.</p>
-            </div>
-          </div>
-
-          {/* Plot Size and Quality */}
-           <div className="mt-12 text-center max-w-4xl mx-auto p-6 bg-gray-100 rounded-xl shadow-inner">
-             <h4 className="text-2xl font-semibold mb-2 text-gray-700">Land Size and Architectural Control</h4>
-             <p className="text-lg text-gray-700">The majority preference is for plot sizes between <strong>1,000 and 2,000 square meters</strong>. The association will implement a system of <strong>pre-approved architectural plans</strong> to maintain uniformity and quality across the development. <em>Our collective approach ensures better planning, shared infrastructure costs, and enhanced property values for all members.</em></p>
-           </div>
-        </div>
-      </section>
-      
-      {/* Financial Transparency Hub (RESTRICTED CONTENT) */}
-      <section id="transparency" className="py-16 sm:py-24 bg-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="restricted-draft">
-            <p className="font-bold text-red-600">🔒 RESTRICTED ACCESS (DRAFT): Financial Details</p>
-            <p className="text-sm text-red-500 mt-1">This section will require Member Login upon final launch to view live fund balances and detailed expenditure reports.</p>
-          </div>
-
-          <h3 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
-            Financial Integrity & Funds Status
-          </h3>
-          <div className="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-2xl border-2 border-oasis-blue">
-            <p className="text-xl font-semibold text-center text-red-500 mb-6">
-              Data for this section will be activated once the bank accounts are finalized and initial Commitment Fees are received.
+          <div className="text-center max-w-4xl mx-auto">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+              Building Trusted Communities<br />
+              <span className="text-green-300">Through Collective Action</span>
+            </h2>
+            <p className="text-xl sm:text-2xl font-light mb-6 text-blue-100">
+              Join like-minded individuals creating affordable, high-standard land ownership and community development in Zimbabwe.
             </p>
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              <div className="p-4 bg-green-50 rounded-lg shadow-inner border border-green-200">
-                <p className="text-sm font-medium text-gray-600">Total Funds Raised (Fees/Deposits)</p>
-                <p className="text-3xl font-bold text-green-700 mt-1">$0.00</p>
-              </div>
-              <div className="p-4 bg-yellow-50 rounded-lg shadow-inner border border-yellow-200">
-                <p className="text-sm font-medium text-gray-600">Expenditures (Legal/Admin)</p>
-                <p className="text-3xl font-bold text-yellow-700 mt-1">$0.00</p>
-              </div>
-              <div className="p-4 bg-blue-50 rounded-lg shadow-inner border border-blue-200">
-                <p className="text-sm font-medium text-gray-600">Committed Member Count</p>
-                <p className="text-3xl font-bold text-blue-700 mt-1">0</p>
-              </div>
+            <p className="text-lg mb-8 max-w-3xl mx-auto">
+              We address the lack of access to quality social services and build trust through self-reliance and community-led development.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="#about"
+                className="inline-block px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:shadow-xl"
+              >
+                Learn More
+              </a>
+              <Link
+                href="/voting"
+                className="inline-block px-8 py-4 bg-green-600 text-white font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:bg-green-700 hover:shadow-xl"
+              >
+                Access Portal →
+              </Link>
             </div>
-            <p className="mt-6 text-center text-gray-600">
-              *The Finance Committee is committed to providing <strong>monthly transparency reports</strong> with full legal and accounting documentation to all Founding Members.*
+          </div>
+        </div>
+      </section>
+
+      {/* Problem Statement */}
+      <section className="py-16 sm:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              The Challenges We Solve
+            </h3>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Two primary barriers hinder relocation to Zimbabwe
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Project Timeline */}
-      <section id="timeline" className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
-            Project Roadmap & Key Milestones
-          </h3>
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:w-0.5 before:bg-gray-200 before:transform">
-              <div className="relative pl-12">
-                <div className="absolute w-10 h-10 bg-oasis-green rounded-full text-white text-center font-bold flex items-center justify-center -left-0.5 shadow-xl">1</div>
-                <h4 className="font-semibold text-xl mb-1 text-oasis-green">Phase 1: Legal Formalisation (Current)</h4>
-                <p className="text-gray-600">Secure Commitment Fees, officially register the Oasis Housing Association, and finalize the Constitution and Rules & Regulations.</p>
-              </div>
-              <div className="relative pl-12">
-                <div className="absolute w-10 h-10 bg-gray-400 rounded-full text-white text-center font-bold flex items-center justify-center -left-0.5 shadow-xl">2</div>
-                <h4 className="font-semibold text-xl mb-1 text-gray-700">Phase 2: Land Acquisition (Target: Q4 2025)</h4>
-                <p className="text-gray-600">Engage legal counsel for rigorous <strong>due diligence</strong> on shortlisted private farms and execute the land purchase using member deposits.</p>
-              </div>
-              <div className="relative pl-12">
-                <div className="absolute w-10 h-10 bg-gray-400 rounded-full text-white text-center font-bold flex items-center justify-center -left-0.5 shadow-xl">3</div>
-                <h4 className="font-semibold text-xl mb-1 text-gray-700">Phase 3: Planning & Permits (Pending Land Acquisition)</h4>
-                <p className="text-gray-600">Engage Town Planners and Surveyors. Apply for the crucial <strong>subdivision permit</strong> to create individual stands and secure full legal compliance.</p>
-              </div>
-              <div className="relative pl-12">
-                <div className="absolute w-10 h-10 bg-gray-400 rounded-full text-white text-center font-bold flex items-center justify-center -left-0.5 shadow-xl">4</div>
-                <h4 className="font-semibold text-xl mb-1 text-gray-700">Phase 4: Infrastructure & Development</h4>
-                <p className="text-gray-600">Commence development of roads, utilities (water, power), commercial zones, and social facilities.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Leadership and Integrity Section */}
-      <section id="leadership" className="py-16 sm:py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">
-            Meet Your Committed Leadership Team
-          </h3>
-           <p className="text-center text-lg text-gray-600 mb-12">
-             Transparency and professionalism are our core values. These volunteer leaders bring diverse skills and expertise, demonstrating how <strong>combining individual talents creates a powerful collective force</strong> for community development.
-           </p>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
-            {/* Mimi */}
-            <div className="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
-              <div className="w-20 h-20 rounded-full mx-auto mb-3 bg-gray-200 flex items-center justify-center text-2xl font-bold text-white" style={{backgroundColor: '#22c55e'}}>M</div>
-              <h5 className="text-xl font-semibold">Mimi</h5>
-              <p className="text-oasis-green font-medium">Chair / Founder</p>
-              <p className="text-sm text-gray-500 mt-2">Drove strategic land decision; confirmed association name.</p>
-            </div>
-            {/* Sekai */}
-            <div className="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
-              <div className="w-20 h-20 rounded-full mx-auto mb-3 bg-gray-200 flex items-center justify-center text-2xl font-bold text-white" style={{backgroundColor: '#0e7490'}}>S</div>
-              <h5 className="text-xl font-semibold">Sekai</h5>
-              <p className="text-oasis-green font-medium">Executive Coordinator</p>
-              <p className="text-sm text-gray-500 mt-2">Oversaw committee updates and meeting flow.</p>
-            </div>
-            {/* Frank */}
-            <div className="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
-              <div className="w-20 h-20 rounded-full mx-auto mb-3 bg-gray-200 flex items-center justify-center text-2xl font-bold text-white" style={{backgroundColor: '#6366f1'}}>F</div>
-              <h5 className="text-xl font-semibold">Frank</h5>
-              <p className="text-oasis-green font-medium">Legal Team Lead</p>
-              <p className="text-sm text-gray-500 mt-2">Practicing attorney; drafted the <strong>Draft Constitution</strong>.</p>
-            </div>
-            {/* Biggie (Gima Rowan) */}
-            <div className="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
-              <div className="w-20 h-20 rounded-full mx-auto mb-3 bg-gray-200 flex items-center justify-center text-2xl font-bold text-white" style={{backgroundColor: '#f97316'}}>B</div>
-              <h5 className="text-xl font-semibold">Biggie (Gima Rowan)</h5>
-              <p className="text-oasis-green font-medium">Finance Committee Lead</p>
-              <p className="text-sm text-gray-500 mt-2">Proposed initial <strong>Commitment and Annual Fees</strong>.</p>
-            </div>
-            {/* Fiona */}
-            <div className="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
-              <div className="w-20 h-20 rounded-full mx-auto mb-3 bg-gray-200 flex items-center justify-center text-2xl font-bold text-white" style={{backgroundColor: '#ec4899'}}>Fi</div>
-              <h5 className="text-xl font-semibold">Fiona</h5>
-              <p className="text-oasis-green font-medium">Ethics Committee Lead</p>
-              <p className="text-sm text-gray-500 mt-2">Responsible for the <strong>Rules and Regulations</strong> document.</p>
-            </div>
-            {/* Sydney */}
-            <div className="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
-              <div className="w-20 h-20 rounded-full mx-auto mb-3 bg-gray-200 flex items-center justify-center text-2xl font-bold text-white" style={{backgroundColor: '#facc15'}}>Sy</div>
-              <h5 className="text-xl font-semibold">Sydney</h5>
-              <p className="text-oasis-green font-medium">Technical Services Lead</p>
-              <p className="text-sm text-gray-500 mt-2">Leads engineers/project managers for development.</p>
-            </div>
-            {/* Tafadzwa Mukonda */}
-            <div className="w-full max-w-xs bg-white rounded-xl shadow-lg p-5 text-center transition duration-300 hover:shadow-xl border-t-4 border-oasis-green">
-              <div className="w-20 h-20 rounded-full mx-auto mb-3 bg-gray-200 flex items-center justify-center text-2xl font-bold text-white" style={{backgroundColor: '#10b981'}}>T</div>
-              <h5 className="text-xl font-semibold">Tafadzwa Mukonda</h5>
-              <p className="text-oasis-green font-medium">Media & Graphics Lead</p>
-              <p className="text-sm text-gray-500 mt-2">Manages branding, web, and monetization strategy.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Resources & Documentation */}
-      <section className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
-            Resources & Documentation
-          </h3>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                  <span className="text-2xl">📊</span>
-                </div>
-                <div className="flex-1">
-                  <h4 className="text-xl font-semibold text-gray-900 mb-2">Strategic Analysis</h4>
-                  <p className="text-gray-600 mb-4">Comprehensive analysis of OHA&apos;s strategic direction, market positioning, and development roadmap.</p>
-                   <a 
-                     href="/docs/Strategic%20Analysis%20of%20Oasis%20HA.pdf" 
-                     target="_blank"
-                     title="Strategic Analysis of Oasis HA - Phase I De-Risking Strategy"
-                     className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
-                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    Download PDF
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                  <span className="text-2xl">📝</span>
-                </div>
-                <div className="flex-1">
-                  <h4 className="text-xl font-semibold text-gray-900 mb-2">Meeting Minutes #2</h4>
-                  <p className="text-gray-600 mb-4">Official minutes from OHA Meeting #2 covering key decisions, discussions, and action items.</p>
-                   <a 
-                     href="/docs/Minutes%20of%20OHA%20meeting%20%232.pdf" 
-                     target="_blank"
-                     title="Minutes of OHA Meeting #2 - Key Decisions and Action Items"
-                     className="inline-flex items-center text-green-600 hover:text-green-800 font-medium"
-                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    Download PDF
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 text-center">
-            <p className="text-gray-600">
-              Additional documentation will be added as the association progresses through its development phases.
-            </p>
-          </div>
-        </div>
-      </section>
-      
-      {/* Legal Documents & Land Details (RESTRICTED CONTENT) */}
-      <section id="documents" className="py-16 sm:py-24 bg-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="restricted-draft">
-            <p className="font-bold text-red-600">🔒 RESTRICTED ACCESS (DRAFT): Legal and Land Details</p>
-            <p className="text-sm text-red-500 mt-1">Finalized legal documents and specific land maps will require Member Login for security and version control.</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Legal Documents */}
-            <div>
-              <h3 className="text-3xl font-bold mb-6 text-gray-900 flex items-center">
-                <span className="text-4xl mr-3 text-oasis-green">⚖️</span> Governance & Documents
-              </h3>
-              <p className="text-lg text-gray-700 mb-4">
-                The legal foundation of Oasis Housing Association ensures long-term security and stability for all members.
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-red-500">
+              <div className="text-4xl mb-4">🏥</div>
+              <h4 className="text-2xl font-semibold mb-3 text-gray-900">Lack of Quality Services</h4>
+              <p className="text-gray-600 leading-relaxed">
+                Absence of professional, trustworthy, and reliable services in critical sectors including healthcare, education, finance, and employment.
               </p>
-              <ul className="space-y-4">
-                <li>
-                  <div className="block p-4 bg-white rounded-xl shadow-md border-l-4 border-gray-300 opacity-75">
-                    <div className="flex items-center justify-between">
-                      <p className="font-semibold text-lg text-gray-600">Association Constitution (Final)</p>
-                      <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full font-medium">UPLOAD PENDING</span>
-                    </div>
-                    <p className="text-sm text-gray-500 mt-2">Document finalizing the structure, roles, and member rights. <strong>Will be uploaded after official registration.</strong></p>
-                  </div>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-orange-500">
+              <div className="text-4xl mb-4">🤝</div>
+              <h4 className="text-2xl font-semibold mb-3 text-gray-900">Lack of Trust & Confidence</h4>
+              <p className="text-gray-600 leading-relaxed">
+                A significant issue within the community is the lack of trust and confidence in service providers. This is a core problem we are determined to solve.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center max-w-4xl mx-auto bg-green-50 p-8 rounded-xl border-2 border-green-200">
+            <h4 className="text-2xl font-bold text-oasis-green mb-3">Our Solution: Community-Led Development</h4>
+            <p className="text-lg text-gray-700">
+              Working together through <strong>Self-Reliance</strong> and <strong>Community-Led Development</strong> to create and maintain high-standard services that are transparent, professional, and reliable.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-16 sm:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Who We Are & What We Do
+            </h3>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              A group of like-minded individuals achieving collective goals through land ownership and community development
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-gray-50 p-6 rounded-xl shadow-md border-l-4 border-oasis-green">
+              <div className="text-4xl mb-3 text-oasis-green">⚖️</div>
+              <h4 className="text-xl font-semibold mb-2">Legal Vehicle Creation</h4>
+              <p className="text-gray-600">Creating a safe, transparent, and legal vehicle for the joint purchase of large pieces of land.</p>
+            </div>
+
+            <div className="bg-gray-50 p-6 rounded-xl shadow-md border-l-4 border-blue-500">
+              <div className="text-4xl mb-3 text-blue-500">📐</div>
+              <h4 className="text-xl font-semibold mb-2">Land Subdivision</h4>
+              <p className="text-gray-600">Legally subdividing land into private residential stands for individual members.</p>
+            </div>
+
+            <div className="bg-gray-50 p-6 rounded-xl shadow-md border-l-4 border-purple-500">
+              <div className="text-4xl mb-3 text-purple-500">🏗️</div>
+              <h4 className="text-xl font-semibold mb-2">Infrastructure Investment</h4>
+              <p className="text-gray-600">Reserving ~20% of land for shared development: roads, access ways, and security infrastructure.</p>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-blue-50 to-green-50 p-8 rounded-xl border-2 border-blue-200">
+            <h4 className="text-2xl font-bold text-gray-900 mb-4">This Group is For You If You Are:</h4>
+            <ul className="space-y-3 text-gray-700">
+              <li className="flex items-start">
+                <span className="text-green-600 mr-3 text-xl">✓</span>
+                <span>Looking for <strong>affordable land</strong> with long-term value</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-600 mr-3 text-xl">✓</span>
+                <span>Seeking to live in a <strong>safe, private community</strong> and upscale suburbs</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-600 mr-3 text-xl">✓</span>
+                <span>Open to <strong>shared development</strong> for private benefit</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+            <h4 className="text-xl font-bold text-gray-900 mb-2">⏰ Why Now?</h4>
+            <div className="grid sm:grid-cols-3 gap-4 text-gray-700">
+              <div>
+                <p className="font-semibold text-yellow-800">Land Prices Soaring</p>
+                <p className="text-sm">Projected to continue rising</p>
+              </div>
+              <div>
+                <p className="font-semibold text-yellow-800">Individual Unaffordable</p>
+                <p className="text-sm">Buying alone is out of reach</p>
+              </div>
+              <div>
+                <p className="font-semibold text-yellow-800">Collective Power</p>
+                <p className="text-sm">Together we unlock premium land</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section id="benefits" className="py-16 sm:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Benefits of Membership
+            </h3>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Joining the group provides distinct advantages unavailable to individual buyers
+            </p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-oasis-green text-white">
+                    <th className="px-6 py-4 text-left font-semibold">Benefit</th>
+                    <th className="px-6 py-4 text-left font-semibold">Description</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr className="hover:bg-gray-50">
+                    <td className="px-6 py-4 font-medium text-gray-900">💪 Collective Bargaining Power</td>
+                    <td className="px-6 py-4 text-gray-600">Negotiate better property prices, terms, and bulk discounts that would be difficult to access individually.</td>
+                  </tr>
+                  <tr className="hover:bg-gray-50">
+                    <td className="px-6 py-4 font-medium text-gray-900">💰 Increased Affordability</td>
+                    <td className="px-6 py-4 text-gray-600">Spread costs across members, reducing individual financial burden for land acquisition, legal fees, and development.</td>
+                  </tr>
+                  <tr className="hover:bg-gray-50">
+                    <td className="px-6 py-4 font-medium text-gray-900">🧠 Shared Knowledge & Expertise</td>
+                    <td className="px-6 py-4 text-gray-600">Benefit from pooled insights on legal processes, land verification, property trends, and investment strategies.</td>
+                  </tr>
+                  <tr className="hover:bg-gray-50">
+                    <td className="px-6 py-4 font-medium text-gray-900">🛡️ Risk Reduction</td>
+                    <td className="px-6 py-4 text-gray-600">Mitigate risks through thorough due diligence, peer review, and shared accountability mechanisms.</td>
+                  </tr>
+                  <tr className="hover:bg-gray-50">
+                    <td className="px-6 py-4 font-medium text-gray-900">📜 Transparent Ownership</td>
+                    <td className="px-6 py-4 text-gray-600">Acquire property through legally recognized collective ownership models that safeguard each member&apos;s stake.</td>
+                  </tr>
+                  <tr className="hover:bg-gray-50">
+                    <td className="px-6 py-4 font-medium text-gray-900">👔 Professional Support</td>
+                    <td className="px-6 py-4 text-gray-600">Engage trusted service providers (lawyers, surveyors, developers) as a group, reducing cost and ensuring quality.</td>
+                  </tr>
+                  <tr className="hover:bg-gray-50">
+                    <td className="px-6 py-4 font-medium text-gray-900">🌍 Community & Networking</td>
+                    <td className="px-6 py-4 text-gray-600">Join a trusted network of like-minded Zimbabweans focused on long-term financial empowerment and generational wealth.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Principles */}
+      <section className="py-16 sm:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Our Operating Principles
+            </h3>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Four principles that guide every decision and operation
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl shadow-md border-t-4 border-blue-600">
+              <div className="text-4xl mb-3">⚖️</div>
+              <h4 className="text-xl font-bold text-gray-900 mb-2">Legal First</h4>
+              <p className="text-gray-700">No funds move without legal agreements clearly established and signed.</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl shadow-md border-t-4 border-green-600">
+              <div className="text-4xl mb-3">🗳️</div>
+              <h4 className="text-xl font-bold text-gray-900 mb-2">Collective Decision-Making</h4>
+              <p className="text-gray-700">All major decisions made through group consensus process.</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl shadow-md border-t-4 border-purple-600">
+              <div className="text-4xl mb-3">💎</div>
+              <h4 className="text-xl font-bold text-gray-900 mb-2">Transparent Costing</h4>
+              <p className="text-gray-700">Everyone has visibility of and agrees to all costs involved.</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl shadow-md border-t-4 border-orange-600">
+              <div className="text-4xl mb-3">🏡</div>
+              <h4 className="text-xl font-bold text-gray-900 mb-2">Individual Ownership</h4>
+              <p className="text-gray-700">Ultimate goal is for everyone to own their individual plot.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Community Amenities */}
+      <section id="amenities" className="py-16 sm:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Planned Community Amenities
+            </h3>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Creating useful, pleasant facilities to increase desirability, comfort, and property values
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            {/* Healthcare */}
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="text-4xl mr-4">🏥</div>
+                <h4 className="text-2xl font-bold text-gray-900">Healthcare Vision</h4>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Primary focus on maintaining a safe and healthy environment, especially for vulnerable members.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">•</span>
+                  <span>Hospital / Clinic</span>
                 </li>
-                <li>
-                  <div className="block p-4 bg-white rounded-xl shadow-md border-l-4 border-gray-300 opacity-75">
-                    <div className="flex items-center justify-between">
-                      <p className="font-semibold text-lg text-gray-600">Community Rules & Regulations</p>
-                      <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full font-medium">DRAFTING</span>
-                    </div>
-                    <p className="text-sm text-gray-500 mt-2">Details on architecture, noise, levies, and communal area usage. <strong>Drafting will commence post-registration.</strong></p>
-                  </div>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">•</span>
+                  <span>Pharmacy</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">•</span>
+                  <span>Dental Facilities</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">•</span>
+                  <span>Optical Facilities</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">•</span>
+                  <span>Special needs support for all ages</span>
                 </li>
               </ul>
             </div>
 
-            {/* Land Details */}
-            <div>
-              <h3 className="text-3xl font-bold mb-6 text-gray-900 flex items-center">
-                <span className="text-4xl mr-3 text-oasis-green">🗺️</span> Land Acquisition Evaluation
-              </h3>
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-                <div className="w-full h-48 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg mb-4 flex items-center justify-center text-gray-600 border-2 border-dashed border-gray-300">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">📍</div>
-                    <p className="font-medium">Interactive Map Coming Soon</p>
-                    <p className="text-sm">Pre-acquisition evaluation tools</p>
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="text-lg font-semibold text-gray-800 mb-2">Current Search Criteria</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• <strong>Location:</strong> Within 1-hour radius of Harare</li>
-                      <li>• <strong>Size:</strong> Minimum 1,000 sqm plots (1,000-2,000 sqm preferred)</li>
-                      <li>• <strong>Ownership:</strong> Privately owned farms with clean title deeds</li>
-                      <li>• <strong>Access:</strong> Good road connectivity and utilities potential</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-800 mb-2">Pre-Acquisition Evaluation Features</h4>
-                    <p className="text-sm text-blue-700">This section will include interactive maps, land analysis tools, and detailed property evaluations to help members assess potential acquisition sites before final purchase decisions.</p>
-                  </div>
-                </div>
+            {/* Education */}
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="text-4xl mr-4">🎓</div>
+                <h4 className="text-2xl font-bold text-gray-900">Education Vision</h4>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Comprehensive educational facilities from nursery through skills training.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Nursery School</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Primary School</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Secondary School</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Skills Training Colleges</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Special Educational Needs (SEN) support</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Employment */}
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="text-4xl mr-4">💼</div>
+                <h4 className="text-2xl font-bold text-gray-900">Employment Opportunities</h4>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Addressing the key concern of earning a living for those considering relocation.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-purple-600 mr-2">•</span>
+                  <span>Jobs created through community amenities</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-purple-600 mr-2">•</span>
+                  <span>High-quality services for members and outsiders</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-purple-600 mr-2">•</span>
+                  <span>Good wages to maintain high living standards</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-purple-600 mr-2">•</span>
+                  <span>Every job valued as important and unique</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Other Amenities */}
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="text-4xl mr-4">🏪</div>
+                <h4 className="text-2xl font-bold text-gray-900">Additional Amenities</h4>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Comprehensive facilities for daily needs and quality of life.
+              </p>
+              <ul className="space-y-2 text-gray-700 text-sm">
+                <li className="flex items-start">
+                  <span className="text-orange-600 mr-2">•</span>
+                  <span>Shopping Centre & Food Services</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-orange-600 mr-2">•</span>
+                  <span>Banking & Postal Facilities</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-orange-600 mr-2">•</span>
+                  <span>Fitness Centres & Recreation</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-orange-600 mr-2">•</span>
+                  <span>Library & Community Halls</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-orange-600 mr-2">•</span>
+                  <span>Public Transportation Access</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-orange-600 mr-2">•</span>
+                  <span>Advanced Security Systems</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white p-8 rounded-xl shadow-xl text-center">
+            <h4 className="text-2xl font-bold mb-3">Our Standards of Living</h4>
+            <p className="text-lg mb-6">
+              We aim to guarantee fundamental human necessities and go beyond to provide quality of life, comfort, and opportunities for growth.
+            </p>
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div className="bg-white/10 p-3 rounded-lg">
+                <p className="font-semibold">Safety & Security</p>
+              </div>
+              <div className="bg-white/10 p-3 rounded-lg">
+                <p className="font-semibold">Modern Conveniences</p>
+              </div>
+              <div className="bg-white/10 p-3 rounded-lg">
+                <p className="font-semibold">Economic Opportunities</p>
+              </div>
+              <div className="bg-white/10 p-3 rounded-lg">
+                <p className="font-semibold">Social & Leisure</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Commitment and Next Steps (RESTRICTED CONTENT) */}
-      <section id="commitment" className="py-16 sm:py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="restricted-draft">
-            <p className="font-bold text-red-600">🔒 RESTRICTED ACCESS (DRAFT): Fee and Deposit Requirements</p>
-            <p className="text-sm text-red-500 mt-1">Specific financial requirements and exclusive benefits for Founding Members will require Member Login.</p>
+      {/* Call to Action */}
+      <section className="py-16 sm:py-20 bg-gradient-to-br from-oasis-green to-green-700 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h3 className="text-3xl sm:text-4xl font-bold mb-6">
+            Ready to Join Our Community?
+          </h3>
+          <p className="text-xl mb-8 text-green-100">
+            Access the member portal to view proposals, participate in voting, and connect with fellow members.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/voting"
+              className="inline-block px-8 py-4 bg-white text-oasis-green font-bold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:shadow-xl"
+            >
+              Access Member Portal →
+            </Link>
+            <a
+              href="#contact"
+              className="inline-block px-8 py-4 bg-green-800 text-white font-bold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:bg-green-900"
+            >
+              Contact Us
+            </a>
           </div>
+        </div>
+      </section>
 
-           <h3 className="text-3xl sm:text-4xl font-bold text-center mb-6 text-gray-900">
-             Your Commitment to Becoming a Founding Member
-           </h3>
-           <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
-             <strong>Join the collective:</strong> Your individual contribution becomes part of something greater. Together, we pool resources, share expertise, and build a community that none of us could create alone.
-           </p>
-
-          <div className="bg-white p-6 sm:p-10 rounded-xl shadow-2xl border-2 border-oasis-green space-y-8">
-            {/* Founding Member Status */}
-            <div className="border-b pb-4">
-              <h4 className="text-2xl font-bold text-oasis-green flex items-center mb-4">
-                <span className="mr-3">⭐</span> Initial Founding Contributions
-              </h4>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
-                  <p className="text-sm font-medium text-gray-700">Commitment Fee (Once-off)</p>
-                  <p className="text-2xl font-extrabold text-blue-800 mt-1">US$100</p>
-                  <p className="text-xs text-red-600 font-semibold">Non-Refundable</p>
-                </div>
-                <div className="p-4 bg-green-50 rounded-lg border-2 border-green-300">
-                  <p className="text-sm font-medium text-gray-700">Annual Membership Fee</p>
-                  <p className="text-2xl font-extrabold text-green-800 mt-1">US$100</p>
-                  <p className="text-xs text-gray-600 font-semibold">Paid Yearly</p>
-                </div>
-              </div>
-              <p className="text-base text-gray-700 mt-4">
-                These funds secure your position and finance the immediate legal registration of the association.
-              </p>
-            </div>
-
-            {/* Financial Target */}
-            <div className="border-b pb-4">
-              <h4 className="text-2xl font-bold text-oasis-green flex items-center mb-2">
-                <span className="mr-3">💰</span> Land Deposit Goal
-              </h4>
-              <p className="text-lg text-gray-700">
-                The collective target is for all members to have the full deposit ready for immediate land purchase upon identification.
-              </p>
-              <ul className="list-disc list-inside ml-4 mt-3 text-gray-600 space-y-1">
-                <li><strong>Deposit Target:</strong> <strong>US$10,000</strong> per member.</li>
-                <li><strong>Deadline:</strong> December 31, 2025.</li>
-                <li><em>Note:</em> Members who can only commit <strong>US$5,000</strong> by the deadline must commit to a monthly payment plan for the remainder.</li>
-              </ul>
-            </div>
-
-            {/* Key Benefits */}
+      {/* Footer */}
+      <footer id="contact" className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h4 className="text-2xl font-bold text-oasis-green flex items-center mb-2">
-                <span className="mr-3">✅</span> Exclusive Founding Member Benefits
+              <h4 className="text-xl font-bold mb-4 flex items-center">
+                <div className="w-10 h-10 bg-oasis-green rounded-lg flex items-center justify-center mr-3">
+                  <span className="text-white text-lg font-black">O</span>
+                </div>
+                Oasis Housing Association
               </h4>
-              <p className="text-lg text-gray-700">
-                Your early commitment guarantees premium advantages:
+              <p className="text-gray-400">
+                Building trusted communities through collective action and self-reliance.
               </p>
-              <ul className="list-disc list-inside ml-4 mt-3 text-gray-600 space-y-1">
-                <li>More <strong>Affordable Land Rates</strong> compared to later members.</li>
-                <li><strong>First Right of Refusal</strong> on valuable commercial plots.</li>
-                <li><strong>Discounts</strong> on future social facilities (e.g., gyms, schools).</li>
+            </div>
+
+            <div>
+              <h5 className="text-lg font-semibold mb-4">Quick Links</h5>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#about" className="hover:text-white transition">About Us</a></li>
+                <li><a href="#benefits" className="hover:text-white transition">Benefits</a></li>
+                <li><a href="#amenities" className="hover:text-white transition">Amenities</a></li>
+                <li><Link href="/voting" className="hover:text-white transition">Member Portal</Link></li>
               </ul>
+            </div>
+
+            <div>
+              <h5 className="text-lg font-semibold mb-4">Contact</h5>
+              <p className="text-gray-400 mb-2">
+                For enquiries, please use the designated WhatsApp group.
+              </p>
+              <p className="text-sm text-gray-500">
+                Member portal access available to registered members.
+              </p>
             </div>
           </div>
 
-          <div className="mt-12 text-center">
-            <p className="text-xl font-medium text-gray-700">
-              Ready to secure your place? Complete your fee payment and review the Draft Constitution today.
+          <div className="border-t border-gray-800 pt-8 text-center">
+            <p className="text-gray-400 text-sm">
+              &copy; 2025 Oasis Housing Association. All rights reserved.
+            </p>
+            <p className="text-gray-500 text-xs mt-2">
+              Together, we achieve more through collective action and shared vision.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Contact/Footer */}
-      <footer id="contact" className="bg-gray-800 text-white py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="mb-4 text-lg font-semibold">Oasis Housing Association</p>
-          <p className="text-sm text-gray-400">&copy; 2025 Oasis Housing Association. All rights reserved.</p>
-          <p className="text-sm text-gray-400 mt-2">For urgent enquiries, please use the designated WhatsApp group.</p>
         </div>
       </footer>
-
-      {/* Member Login Popup */}
-      {showLoginPopup && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 p-4 animate-in fade-in duration-300"
-          onClick={() => setShowLoginPopup(false)}
-        >
-          <div 
-            className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in zoom-in-95 slide-in-from-bottom-4 duration-300"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Member Login Portal</h3>
-                <button
-                  onClick={() => setShowLoginPopup(false)}
-                  className="text-gray-400 hover:text-gray-600 transition-colors duration-200 hover:scale-110 transform"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                  <p className="text-yellow-800 font-medium">🚧 Coming Soon</p>
-                  <p className="text-yellow-700 text-sm mt-1">This feature is currently under development and will be available to Founding Members upon launch.</p>
-                </div>
-
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4">Expected Features:</h4>
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <span className="text-oasis-green mr-3">📊</span>
-                      <div>
-                        <p className="font-medium text-gray-900">Financial Dashboard</p>
-                        <p className="text-sm text-gray-600">Real-time fund balances, expenditure reports, and transparency metrics</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-oasis-green mr-3">📋</span>
-                      <div>
-                        <p className="font-medium text-gray-900">Document Access</p>
-                        <p className="text-sm text-gray-600">Constitution, Rules & Regulations, and legal documents</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-oasis-green mr-3">🗺️</span>
-                      <div>
-                        <p className="font-medium text-gray-900">Land Details</p>
-                        <p className="text-sm text-gray-600">Interactive maps, plot information, and development updates</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-oasis-green mr-3">👥</span>
-                      <div>
-                        <p className="font-medium text-gray-900">Member Directory</p>
-                        <p className="text-sm text-gray-600">Contact information and member profiles</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-oasis-green mr-3">💬</span>
-                      <div>
-                        <p className="font-medium text-gray-900">Communication Hub</p>
-                        <p className="text-sm text-gray-600">Announcements, meeting schedules, and community updates</p>
-                      </div>
-                    </li>
-                     <li className="flex items-start">
-                       <span className="text-oasis-green mr-3">💰</span>
-                       <div>
-                         <p className="font-medium text-gray-900">Personal Finance Portal</p>
-                         <p className="text-sm text-gray-600">View transaction history, payment plans, payment options, and manage your financial commitments</p>
-                       </div>
-                     </li>
-                  </ul>
-                </div>
-
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">
-                    <strong>Access Requirements:</strong> This portal will be available exclusively to Founding Members who have completed their initial commitment fee payment and are registered with the association.
-                  </p>
-                </div>
-
-                <div className="flex justify-end space-x-3">
-                  <button
-                    onClick={() => setShowLoginPopup(false)}
-                    className="px-4 py-2 text-gray-600 hover:text-gray-800 transition duration-300"
-                  >
-                    Close
-                  </button>
-                  <a
-                    href="#commitment"
-                    onClick={() => setShowLoginPopup(false)}
-                    className="px-6 py-2 bg-oasis-green text-white rounded-lg hover:bg-green-700 transition duration-300 font-medium"
-                  >
-                    Become a Founding Member
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-    </div>
-      )}
     </main>
   );
 }
-
