@@ -103,7 +103,7 @@ export default function Home() {
 
       {/* Mobile Menu */}
       {showMobileMenu && (
-        <div className="md:hidden bg-white border-b border-gray-200 shadow-lg">
+        <div className="md:hidden bg-white border-b border-gray-200 shadow-lg fixed top-[76px] left-0 right-0 z-50">
           <div className="px-4 py-4 space-y-3">
             <a
               href="#about"
@@ -152,29 +152,29 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-oasis-blue to-blue-700 text-white pt-20 pb-24 sm:pt-28 sm:pb-32">
+      <section className="bg-gradient-to-br from-emerald-800 via-green-700 to-yellow-600 text-white pt-20 pb-24 sm:pt-28 sm:pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-              Building Trusted Communities<br />
-              <span className="text-green-300">Through Collective Action</span>
+              Zimbabwean Professionals in the Diaspora<br />
+              <span className="text-yellow-200">Building Our Future Together</span>
             </h2>
-            <p className="text-xl sm:text-2xl font-light mb-6 text-blue-100">
-              Join like-minded individuals creating affordable, high-standard land ownership and community development in Zimbabwe.
+            <p className="text-xl sm:text-2xl font-light mb-6 text-green-50">
+              Join like-minded professionals creating affordable, high-standard land ownership and community development back home in Zimbabwe.
             </p>
             <p className="text-lg mb-8 max-w-3xl mx-auto">
-              We address the lack of access to quality social services and build trust through self-reliance and community-led development.
+              We address the lack of access to quality social services and build trust through self-reliance and community-led development for Zimbabweans returning home.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="#about"
-                className="inline-block px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:shadow-xl"
+                className="inline-block px-8 py-4 bg-white text-green-800 font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:shadow-xl"
               >
                 Learn More
               </a>
               <Link
                 href="/portal"
-                className="inline-block px-8 py-4 bg-green-600 text-white font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:bg-green-700 hover:shadow-xl"
+                className="inline-block px-8 py-4 bg-yellow-500 text-gray-900 font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-105 hover:bg-yellow-400 hover:shadow-xl"
               >
                 Members Portal →
               </Link>
@@ -216,7 +216,7 @@ export default function Home() {
           <div className="mt-12 text-center max-w-4xl mx-auto bg-green-50 p-8 rounded-xl border-2 border-green-200">
             <h4 className="text-2xl font-bold text-oasis-green mb-3">Our Solution: Community-Led Development</h4>
             <p className="text-lg text-gray-700">
-              Working together through <strong>Self-Reliance</strong> and <strong>Community-Led Development</strong> to create and maintain high-standard services that are transparent, professional, and reliable.
+              As Zimbabwean professionals in the diaspora, we're working together through <strong>Self-Reliance</strong> and <strong>Community-Led Development</strong> to create and maintain high-standard services that are transparent, professional, and reliable for when we return home.
             </p>
           </div>
         </div>
@@ -230,7 +230,7 @@ export default function Home() {
               Who We Are & What We Do
             </h3>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              A group of like-minded individuals achieving collective goals through land ownership and community development
+              Zimbabwean professionals living abroad, united in achieving our collective goals through land ownership and community development back home
             </p>
           </div>
 
@@ -254,20 +254,24 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 p-8 rounded-xl border-2 border-blue-200">
+          <div className="bg-gradient-to-r from-green-50 to-yellow-50 p-8 rounded-xl border-2 border-green-200">
             <h4 className="text-2xl font-bold text-gray-900 mb-4">This Group is For You If You Are:</h4>
             <ul className="space-y-3 text-gray-700">
               <li className="flex items-start">
                 <span className="text-green-600 mr-3 text-xl">✓</span>
-                <span>Looking for <strong>affordable land</strong> with long-term value</span>
+                <span>A <strong>Zimbabwean professional in the diaspora</strong> planning to return home</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-600 mr-3 text-xl">✓</span>
-                <span>Seeking to live in a <strong>safe, private community</strong> and upscale suburbs</span>
+                <span>Looking for <strong>affordable land</strong> with long-term value in Zimbabwe</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-600 mr-3 text-xl">✓</span>
-                <span>Open to <strong>shared development</strong> for private benefit</span>
+                <span>Seeking to live in a <strong>safe, private community</strong> with other like-minded professionals</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-green-600 mr-3 text-xl">✓</span>
+                <span>Open to <strong>collaborative development</strong> for collective benefit</span>
               </li>
             </ul>
           </div>
@@ -300,7 +304,7 @@ export default function Home() {
               Benefits of Membership
             </h3>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Joining the group provides distinct advantages unavailable to individual buyers
+              As diaspora professionals pooling our resources, we gain advantages impossible to achieve individually
             </p>
           </div>
 
@@ -340,7 +344,7 @@ export default function Home() {
                   </tr>
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4 font-medium text-gray-900">🌍 Community & Networking</td>
-                    <td className="px-6 py-4 text-gray-600">Join a trusted network of like-minded Zimbabweans focused on long-term financial empowerment and generational wealth.</td>
+                    <td className="px-6 py-4 text-gray-600">Join a trusted network of Zimbabwean professionals in the diaspora focused on long-term financial empowerment and building generational wealth back home.</td>
                   </tr>
                 </tbody>
               </table>
@@ -475,7 +479,7 @@ export default function Home() {
                 <h4 className="text-2xl font-bold text-gray-900">Employment Opportunities</h4>
               </div>
               <p className="text-gray-600 mb-4">
-                Addressing the key concern of earning a living for those considering relocation.
+                Addressing the key concern for diaspora professionals: earning a living when returning home to Zimbabwe.
               </p>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start">
@@ -559,14 +563,14 @@ export default function Home() {
       </section>
 
       {/* Membership Application Form */}
-      <section id="apply" className="py-16 sm:py-20 bg-gradient-to-br from-oasis-green to-green-700">
+      <section id="apply" className="py-16 sm:py-20 bg-gradient-to-br from-green-700 via-emerald-700 to-yellow-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Apply for Membership
             </h3>
-            <p className="text-xl text-green-100">
-              Take the first step towards joining our community. Fill out the form below and we&apos;ll be in touch soon.
+            <p className="text-xl text-yellow-50">
+              Join fellow Zimbabwean professionals in building our future back home. Fill out the form below and we&apos;ll be in touch soon.
             </p>
           </div>
 
@@ -693,13 +697,13 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <h4 className="text-xl font-bold mb-4 flex items-center">
-                <div className="w-10 h-10 bg-oasis-green rounded-lg flex items-center justify-center mr-3">
+                <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center mr-3">
                   <span className="text-white text-lg font-black">O</span>
                 </div>
                 Oasis Housing Association
               </h4>
               <p className="text-gray-400">
-                Building trusted communities through collective action and self-reliance.
+                Zimbabwean professionals in the diaspora building trusted communities through collective action.
               </p>
             </div>
 
@@ -729,7 +733,7 @@ export default function Home() {
               &copy; 2025 Oasis Housing Association. All rights reserved.
             </p>
             <p className="text-gray-500 text-xs mt-2">
-              Together, we achieve more through collective action and shared vision.
+              Zimbabwean professionals united in building our future back home through collective action.
             </p>
           </div>
         </div>
